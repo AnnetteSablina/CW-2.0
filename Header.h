@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <stdio.h>
+#include <cstdio>
 #include<Windows.h>
 #include <locale.h>
 #include <vector>
@@ -12,7 +12,7 @@ class logpass;
 class information;
 class dogovor;
 class data;
-class client;
+class Client;
 
 
 void User_haveAccount(std::vector<logpass>&);//вопрос о имении аккаунта
@@ -36,7 +36,7 @@ std::string client_code(std::string);//проверка на ввод кода клиента
 std::string telephone_number(std::string);//проверка на телефонный номер
 std::string ccs(std::string);// проверка на ввод страны, города и улицы
 std::string hf(std::string);// проверка на номер дома и квартиры
-
+std::string date(std::string);
 
 
 

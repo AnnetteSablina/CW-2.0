@@ -66,18 +66,6 @@ bool information::operator==(information user) {
 	else
 		return false;
 };
-data::data(std::string data) {
-	if (data.size() == 8) {
-		day += data[0];
-		day += data[1];
-		month += data[2];
-		month += data[3];
-		year += data[4];
-		year += data[5];
-		year += data[6];
-		year += data[7];
-	}
-}
 data::data() {
 
 }
@@ -187,7 +175,72 @@ for (unsigned int i = 0; i < ccs.size(); i++) {
 }
 return ccs;
 	}
+std::string date(std::string message) {
+	int year;
+	int month;
+	int day;
+	bool isLeap;
+	while (true) {
+		isLeap = false;
+		year = getInt("Введите год");
+		if (year < 1866 || year > 2050) {
+			system("cls");
+			std::cout << "Нотариальные конторы появились в 1866. Работа программы продлена до 2050 года." << std::endl;
+			continue;
+		}
+		if (year % 4 == 0) {
+			system("cls");
+			isLeap = true;
+		}
 
+		break;
+	}
+	system("cls");
+	while (true) {
+		month = getInt("Введите месяц");
+		if (month < 1 || month > 12) {
+			system("cls");
+			std::cout << "В году 12 месяцев" << std::endl;
+			continue;
+		}
+		break;
+	}
+
+	system("cls");
+	while (true) {
+		day = getInt("Ввелите день.");
+		if (day < 1 || day>31) {
+			system("cls");
+			std::cout << "В месяце максимум 31 день." << std::endl;
+			continue;
+		}
+		if (month == 4 || month == 6 || month == 9 || month == 11) {
+			system("cls");
+			if (day > 30) {
+				std::cout << "В апреле, июне, сентябре и ноябре 30 дней." << std::endl;
+			}continue;
+		}
+		if (month == 2 && isLeap == true) {
+			system("cls");
+			if (day > 29) {
+				std::cout << "В високосном году в феврале 29 дней." << std::endl;
+				continue;
+			}
+		}
+		if (month == 2 && isLeap == false) {
+			system("cls");
+			if (day > 28) {
+				std::cout << " В феврале 28 дней." << std::endl;
+				continue;
+			}
+		}
+		break;
+	}
+	
+	std::string date = std::to_string(day) + "." + std::to_string(month) + "." + std::to_string(year);
+	return date;
+
+}
 std::string telephone_number(std::string massage) {
 	std::string telephone_number;
 	for (int k = 0;;) {
