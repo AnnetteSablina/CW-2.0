@@ -202,14 +202,14 @@ bool Admin::add_client_code_into_dogovor() {
 		user.client_code = client_code("Введите код клиента.");
 		neban = true;
 	for (auto i : passport) {
-			if (i.client_code == user.client_code) {
+			if (sha256(i.client_code) == user.client_code) {
 				u++;
 				system("cls");
 				std::ofstream file2("dogovor.txt", std::ios::app);
-				file2 << i.client_code << std::endl;
+				file2 <<sha256( i.client_code) << std::endl;
 				file2.close();
 				std::ofstream file3("magic.txt", std::ios::app);
-				file3 << i.client_code << std::endl << i.name << std::endl << i.surname << std::endl;
+				file3 << sha256(i.client_code )<< std::endl << i.name << std::endl << i.surname << std::endl;
 				file3.close();
 				neban = true;
 				next = false;
@@ -220,16 +220,16 @@ bool Admin::add_client_code_into_dogovor() {
 		
 		if(u==0){
 		std::ofstream file("passport.txt", std::ios::app);
-		file << user.client_code<< std::endl;
+		file << sha256(user.client_code)<< std::endl;
 		file.close();
 		std::ofstream file1("dogovor.txt", std::ios::app);
-		file1 << user.client_code << std::endl;
+		file1 << sha256(user.client_code) << std::endl;
 		file1.close();
 		std::ofstream file4("magic.txt", std::ios::app);
-		file4 << user.client_code << std::endl;
+		file4 << sha256(user.client_code) << std::endl;
 		file4.close();
 		std::ofstream file5("info.txt", std::ios::app);
-		file5 << user.client_code << std::endl;
+		file5 << sha256(user.client_code )<< std::endl;
 		file5.close();
 		next = true;
 	}
@@ -342,6 +342,22 @@ bool Admin::check_login_once() {
 	return check;
 }
 void Admin::add_dogovor() {
+	std::vector <dogovor> documentCode;
+	dogovor_code(documentCode);
 	system("cls");
 	dogovor dogovor;
+	std::cout << "Добавим данные договора." << std::endl;
+	dogovor.service_code = service_code("Введите номер услуги.\n 1111 - Доверенность. \n 2222 - Брачный договор. \n 3333 - Завещание. \n 4444 - Приватизация. \n 5555 - Исполнительные надписи. \n 6666 - Отчуждение недвижимого имущества. \n 7777 - Соглашение об уплате алиментов. \n 8888 - Соглашение на выезд ребенка из страны. \n 9999 - Согласие. ");
+	dogovor.name = dogovor_name(dogovor.service_code);
+	system("cls");
+	dogovor.summ=summ("Введите сумму до 100.000.000");
+	dogovor.commition = summ ("Введите комиссионные.");
+	std::ofstream file8("dogovor.txt", std::ios::app);
+	file8 << dogovor.service_code << std::endl << dogovor.name << std::endl << dogovor.summ << std::endl << dogovor.commition << std::endl;
+	file8.close();
+	add_document_code();
+	Sleep(3000);
+	std::string choice = yes_no("Как вы хотите продолжить? Введите 'yes' , если хотите вернуться в меню админа и 'no', если в начальное меню.");
+	if (choice == "yes")adminMenu();
+	else menu();
 }

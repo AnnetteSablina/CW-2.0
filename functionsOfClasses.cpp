@@ -66,19 +66,25 @@ bool information::operator==(information user) {
 	else
 		return false;
 };
+data::data(std::string date) {
+	this->date = date;
+}
 data::data() {
 
 }
 dogovor::dogovor() {
 };
-dogovor::dogovor(std::string name,std::string document_code,std::string service_code, std::string summ, std::string commission) {
-	this->name = name;
+dogovor::dogovor(std::string document_code) {
+	
 	this->document_code = document_code;
-	this->service_code = service_code;
-	this->summ = summ;
-	this->commition = commission;
+	
 }
-
+dogovor::dogovor(std::string service_code, std::string name, std::string summ, std::string commition) {
+	this->service_code = service_code;
+	this->name = name;
+	this->summ = summ;
+	this->commition = commition;
+}
 std::string client_code(std::string massage) {
 	std::string client_code;
 	for (int k = 0;;) {
@@ -137,8 +143,8 @@ for (int k = 0;;) {
 	std::getline(std::cin, ccs);
 	system("cls");
 for (unsigned int i = 0; i < ccs.size(); i++) {
-			if (ccs.size() < 3) {
-				std::cout << " Введено слишком мало символов. Минимум 3 символа." << std::endl;
+			if (ccs.size() < 3 || ccs.size() >= 20) {
+				std::cout << "Минимум 3 символа. Максимум 20." << std::endl;
 				break;
 			}
 			if (ccs[0] >= 'A' && ccs[0] <= 'Z')
@@ -208,7 +214,7 @@ std::string date(std::string message) {
 
 	system("cls");
 	while (true) {
-		day = getInt("Ввелите день.");
+		day = getInt("Введите день.");
 		if (day < 1 || day>31) {
 			system("cls");
 			std::cout << "В месяце максимум 31 день." << std::endl;
@@ -218,7 +224,8 @@ std::string date(std::string message) {
 			system("cls");
 			if (day > 30) {
 				std::cout << "В апреле, июне, сентябре и ноябре 30 дней." << std::endl;
-			}continue;
+				continue;
+			}
 		}
 		if (month == 2 && isLeap == true) {
 			system("cls");
@@ -234,6 +241,7 @@ std::string date(std::string message) {
 				continue;
 			}
 		}
+
 		break;
 	}
 	
@@ -343,7 +351,7 @@ std::string ns(std::string massage) {
 		int s = 0;
 		std::getline(std::cin,ns);
 		system("cls");
-		for (int i = 0; i < ns.size(); i++) {
+		for (unsigned int i = 0; i < ns.size(); i++) {
 
 			if (ns[i] == ' ') {
 				s++;
@@ -353,9 +361,9 @@ std::string ns(std::string massage) {
 
 		}
 		if (s == 0) {
-			for (int i = 0; i < ns.size(); i++) {
-				if (ns.size() < 3) {
-					std::cout << " Введите еще раз. Недостаточно символов. Минимум 3 символа." << std::endl;
+			for (unsigned int i = 0; i < ns.size(); i++) {
+				if (ns.size() < 3 || ns.size() > 15) {
+					std::cout << "  Минимум 3 символа. Максимум 15." << std::endl;
 					break;
 				}
 				if (ns[0] >= 'A' && ns[0] <= 'Z')
@@ -392,11 +400,11 @@ std::string ns(std::string massage) {
 	}
 	return ns;
 }
-std::string yes_no(std::string massage) {
+std::string yes_no(std::string message) {
 	std::string trololo;
 	while (true) {
 		system("cls");
-		std::cout << massage << std::endl;
+		std::cout << message << std::endl;
 		getline(std::cin, trololo);
 		if (trololo != "yes" && trololo != "no")
 			continue;
@@ -436,9 +444,9 @@ void trololo() {
 	std::vector<std::string> password;
 	user_file(users,password);
 	int maxcount(0), nn(0);
-	for (int i = 0; i < users.size(); i++) {
+	for (unsigned int i = 0; i < users.size(); i++) {
 		 count=0;
-		for (int j = i; j < users.size(); j++) {
+		for ( unsigned int j = i; j < users.size(); j++) {
 			if (users[i] == users[j])
 				count++; 
 		
@@ -450,3 +458,174 @@ void trololo() {
 	}
 	std::cout << users[nn] << " " << password[nn]<<" " << maxcount;
 };
+std::string service_code(std::string message) {
+	std::string service_code;
+	while (true) {
+		system("cls");
+		std::cout << message << std::endl;
+		getline(std::cin, service_code);
+		if (service_code != "1111" && service_code != "2222" && service_code != "3333" && service_code != "4444" && service_code !="5555" && service_code !="6666" && service_code != "7777" && service_code != "8888" && service_code !="9999" )
+			continue;
+		else break;
+	}
+	return service_code;
+}
+std::string dogovor_name(std::string code) {
+	std::string name;
+	if (code == "1111") name = "Power of attorney";
+	if (code == "2222") name = "Marriage contract";
+	if (code == "3333") name = "Bequest";
+	if (code == "4444") name = "Privatization";
+	if (code == "5555") name = "Executive inscriptions";
+	if (code == "6666") name = "Alienation of real estate";
+	if (code == "7777") name = "Alimony Agreement";
+	if (code == "8888") name = "Agreement for a child to travel outside the country";
+	if (code == "9999") name = "Agreement";
+	return name;
+
+}
+void dogovor_code(std::vector<dogovor> &documentCode) {
+	std::ifstream file("document_code.txt");
+	while (!file.eof()) {
+		dogovor temp;
+		getline(file, temp.document_code);
+		documentCode.push_back(temp);
+	}
+	file.close();
+
+}
+void add_document_code() {
+	system("cls");
+	dogovor dogovorka;
+	data datas;
+	bool access = true;
+	do {
+		if (access) {
+			dogovorka.document_code = document_code(1, access);
+		}
+		else {
+			dogovorka.document_code = document_code(2, access);
+		}
+		std::ifstream file("document_code.txt", std::ios::app);
+		while (file) {
+			std::string tmp;
+			getline(file, tmp);
+			if (sha256(tmp) == dogovorka.document_code)
+			{
+				access = false;
+				break;
+			}
+			else {
+				access = true;
+			}
+		}
+		file.close();
+	} while (!access);
+	system("cls");
+	datas.date = date("Введите дату.");
+
+	std::ofstream file1("dogovor.txt", std::ios::app);
+	file1 << sha256(dogovorka.document_code) << std::endl;
+	file1.close();
+	
+
+	std::ofstream file2("document_code.txt", std::ios::app);
+	file2 << sha256(dogovorka.document_code) << std::endl << datas.date << std::endl;;
+	file2.close();
+	system("cls");
+	std::cout << "Вы добавили договор." << std::endl;
+	
+}
+std::string document_code(int type, bool& access) {
+	bool run = true;
+	int u = 0;
+	std::string document_code;
+	switch (type) {
+	case 1:
+		system("cls");
+		if (access) {
+			document_code = getString("Введите номер договора.");
+		}
+		else {
+			document_code = getString("Введите код документа еще раз.");
+		};
+		break;
+
+	case 2:
+		system("cls");
+		document_code = getString("Такой номер договора уже существует в базе.");
+		break;
+	};
+		do {
+			u = 0;
+			if (document_code.size() != 10)
+			{
+
+				document_code = getString("Код договора должен содержать 10 символов.");
+				continue;
+			}
+
+			for (unsigned int i = 0; i < document_code.size(); ++i)
+				if (!((document_code[i] >= 'a' && document_code[i] <= 'z')
+					|| (document_code[i] >= 'A' && document_code[i] <= 'Z')
+					|| (document_code[i] >= '0' && document_code[i] <= '9')))
+				{
+					document_code = getString("Код договора содержит недопустимые символы.");
+					break;
+				}
+				else {
+					u++;
+				}
+			if (u == document_code.size()) {
+				break;
+			}
+	} while (true);
+	return document_code;
+}
+std::string summ(std::string message) {
+	std::string summ;
+	for (int k = 0;;) {
+		std::cout << message << std::endl;
+		int u = 0;
+		int s = 0;
+		std::getline(std::cin, summ);
+		system("cls");
+		for (unsigned int i = 0; i < summ.size(); i++) {
+			if (summ.size() >= 9) {
+				s++;
+				std::cout << "Сумма слишком велика." << std::endl;
+				break;
+			}
+			if (summ[i] == ' ') {
+				s++;
+				std::cout << " Введите без пробелов." << std::endl;
+				break;
+			}
+		}
+		if (s == 0) {
+			for (unsigned int i = 0; i < summ.size(); i++) {
+
+				if (summ[i] >= '0' && summ[i] <= '9')
+					u++;
+				else {
+					std::cout << "Используйте цифры для ввода" << std::endl;
+					u = 0;
+					break;
+
+
+				}
+				if (u == 0)
+					break;
+				if (u == summ.size()) {
+					break;
+
+				}
+			}
+		}
+		if (u == summ.size()) {
+			break;
+
+		}
+	}
+	return summ;
+}

@@ -36,10 +36,13 @@ std::string client_code(std::string);//проверка на ввод кода клиента
 std::string telephone_number(std::string);//проверка на телефонный номер
 std::string ccs(std::string);// проверка на ввод страны, города и улицы
 std::string hf(std::string);// проверка на номер дома и квартиры
-std::string date(std::string);
-
-
-
+std::string date(std::string);//ввод даты
+std::string service_code(std::string);
+std::string dogovor_name(std::string);
+void add_document_code();//добавление номера договора
+std::string document_code(int, bool&);//проверка ввода договора
+void dogovor_code(std::vector<dogovor>&);//чтение файла с номерами договоров
+std::string summ(std::string);//проверка на сумму
 
 
 
@@ -79,15 +82,14 @@ public:
 	std::string summ;//Сумма
 	std::string commition;//Коммисионные
 	dogovor();
-	dogovor(std::string, std::string, std::string, std::string, std::string);
+	dogovor(std::string);
+	dogovor(std::string, std::string, std::string, std::string);
 };
 class data {
 public:
-	data(std::string);//конструктор даты
-	data();//конструктор по умолчанию
-	std::string day;//день
-	std::string month;//месяц
-	std::string year;//год
+	std::string date;
+	data(std::string);
+	data();
 };
 class Client {
 public:

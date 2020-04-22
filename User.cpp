@@ -32,7 +32,6 @@ void User_haveAccount(std::vector<logpass>&users) {
 
 
 }
-
 void data_user_file(std::vector<logpass>& users) 
 	{
 		std::ifstream file("users.txt");
@@ -60,7 +59,6 @@ void data_passport_file(std::vector<information>&passport) {
 	if (!passport.empty()) passport.erase(passport.end() - 1);
 	file.close();
 }
-
 void Client::enterAccount(std::vector<logpass>& users) {
 	system("cls");
 	bool access = true;
@@ -137,7 +135,7 @@ std::string login(int type, bool& access, bool& exit) {
 		for (unsigned int i = 0; i < login.size(); ++i)
 			if (!((login[i] >= 'a' && login[i] <= 'z')
 				|| (login[i] >= 'A' && login[i] <= 'Z')
-				|| (login[i] >= '0' && login[i] <= '0')))
+				|| (login[i] >= '0' && login[i] <= '9')))
 			{
 				login = getString("Логин содержит недопустимые символы. Для выхода введите menu.");
 				break;
@@ -200,15 +198,16 @@ void data_client_file(std::vector<information>& userss) {
 		getline(file, temp.street);
 		getline(file, temp.housenumber);
 		getline(file, temp.flatnumber);
-		file.close();
+		userss.push_back(temp);
 	}
+	file.close();
 }
 void rewrite_user_file(std::vector<logpass>&users)
 {
 	std::ofstream file("users.txt", std::ios::trunc);
 
 	for (auto i : users)
-		file << i.login << std::endl << i.password << std::endl;
+		file << i.login << std::endl << sha256(i.password) << std::endl;
 
 	file.close();
 }
