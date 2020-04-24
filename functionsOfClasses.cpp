@@ -25,9 +25,9 @@ std::string getString(std::string p)
 	std::getline(std::cin, mystring);
 	return mystring;
 }
-int getInt(std::string massage) {
+int getInt(std::string message) {
 	int c;
-	std::cout << massage << std::endl;
+	std::cout << message << std::endl;
 	while (true) {
 		std::cin >> c;
 		if (std::cin.fail()) {
@@ -35,7 +35,7 @@ int getInt(std::string massage) {
 			std::cin.ignore(32767, '\n');
 			system("cls");
 			std::cout << "Используй целое число." << std::endl;
-			std::cout << massage << std::endl;
+			std::cout << message << std::endl;
 			continue;
 
 		}
@@ -85,10 +85,10 @@ dogovor::dogovor(std::string service_code, std::string name, std::string summ, s
 	this->summ = summ;
 	this->commition = commition;
 }
-std::string client_code(std::string massage) {
+std::string client_code(std::string message) {
 	std::string client_code;
 	for (int k = 0;;) {
-		std::cout << massage << std::endl;
+		std::cout << message << std::endl;
 		int u = 0;
 		int s = 0;
 		std::getline(std::cin, client_code);
@@ -134,10 +134,10 @@ std::string client_code(std::string massage) {
 	}
 	return client_code;
 }
-std::string ccs(std::string massage){
+std::string ccs(std::string message){
 std::string ccs;
 for (int k = 0;;) {
-	std::cout << massage << std::endl;
+	std::cout << message << std::endl;
 	int u = 0;
 	int s = 0;
 	std::getline(std::cin, ccs);
@@ -249,10 +249,10 @@ std::string date(std::string message) {
 	return date;
 
 }
-std::string telephone_number(std::string massage) {
+std::string telephone_number(std::string message) {
 	std::string telephone_number;
 	for (int k = 0;;) {
-		std::cout << massage << std::endl;
+		std::cout << message << std::endl;
 		int u = 0;
 		int s = 0;
 		std::getline(std::cin, telephone_number);
@@ -296,10 +296,10 @@ std::string telephone_number(std::string massage) {
 	}
 	return telephone_number;
 }
-std::string hf(std::string massage) {
+std::string hf(std::string message) {
 	std::string hf;
 	for (int k = 0;;) {
-		std::cout << massage << std::endl;
+		std::cout << message << std::endl;
 		int u = 0;
 		int s = 0;
 		std::getline(std::cin, hf);
@@ -343,10 +343,10 @@ std::string hf(std::string massage) {
 	}
 	return hf;
 }
-std::string ns(std::string massage) {
+std::string ns(std::string message) {
 	std::string ns;
 	for (int k = 0;;) {
-		std::cout << massage << std::endl;
+		std::cout << message << std::endl;
 		int u = 0;
 		int s = 0;
 		std::getline(std::cin,ns);
@@ -479,18 +479,19 @@ std::string dogovor_name(std::string code) {
 	if (code == "5555") name = "Executive inscriptions";
 	if (code == "6666") name = "Alienation of real estate";
 	if (code == "7777") name = "Alimony Agreement";
-	if (code == "8888") name = "Agreement for a child to travel outside the country";
+	if (code == "8888") name = "Agreement on a child traveling abroad";
 	if (code == "9999") name = "Agreement";
 	return name;
 
 }
 void dogovor_code(std::vector<dogovor> &documentCode) {
 	std::ifstream file("document_code.txt");
-	while (!file.eof()) {
+	while (file) {
 		dogovor temp;
 		getline(file, temp.document_code);
 		documentCode.push_back(temp);
 	}
+	if (!documentCode.empty()) documentCode.erase(documentCode.end() - 1);
 	file.close();
 
 }
@@ -510,7 +511,7 @@ void add_document_code() {
 		while (file) {
 			std::string tmp;
 			getline(file, tmp);
-			if (sha256(tmp) == dogovorka.document_code)
+			if (tmp == dogovorka.document_code)
 			{
 				access = false;
 				break;
@@ -525,12 +526,12 @@ void add_document_code() {
 	datas.date = date("Введите дату.");
 
 	std::ofstream file1("dogovor.txt", std::ios::app);
-	file1 << sha256(dogovorka.document_code) << std::endl;
+	file1 << dogovorka.document_code << std::endl<<datas.date << std::endl;
 	file1.close();
 	
 
 	std::ofstream file2("document_code.txt", std::ios::app);
-	file2 << sha256(dogovorka.document_code) << std::endl << datas.date << std::endl;;
+	file2 << dogovorka.document_code << std::endl ;
 	file2.close();
 	system("cls");
 	std::cout << "Вы добавили договор." << std::endl;
@@ -553,7 +554,7 @@ std::string document_code(int type, bool& access) {
 
 	case 2:
 		system("cls");
-		document_code = getString("Такой номер договора уже существует в базе.");
+		document_code = getString("Такой номер договора уже существует в базе. Введите номер документа еще раз.");
 		break;
 	};
 		do {

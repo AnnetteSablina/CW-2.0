@@ -32,23 +32,23 @@ void User_haveAccount(std::vector<logpass>&users) {
 
 
 }
-void data_user_file(std::vector<logpass>& users) 
+void data_user_file(std::vector<logpass>& users)	 
 	{
 		std::ifstream file("users.txt");
-		while (!file.eof())
+		while (file)
 		{
 			logpass temp;
 			getline(file, temp.login);
 			getline(file, temp.password);
 			users.push_back(temp);
 		}
-		
+		if (!users.empty()) users.erase(users.end() - 1);
 		file.close();
 
 	}
 void data_passport_file(std::vector<information>&passport) {
 	std::ifstream file("passport.txt");
-	while (!file.eof())
+	while (file)
 	{
 		information temp;
 		std::getline(file, temp.client_code);
@@ -211,7 +211,44 @@ void rewrite_user_file(std::vector<logpass>&users)
 
 	file.close();
 }
+void data_dogovor_file(std::vector<Vivod> &dogovors) {
+	std::ifstream file("dogovor.txt");
+	while (file) {
+		Vivod temp;
+		getline(file, temp.client_code);
+		getline(file, temp.service_code);
+		getline(file, temp.name);
+		getline(file, temp.summ);
+		getline(file, temp.comission);
+		getline(file, temp.document_code);
+		getline(file, temp.date);
+		dogovors.push_back(temp);
+		}
+	if (!dogovors.empty()) dogovors.erase(dogovors.end() - 1);
+	file.close();
 
+}
+void Admin::vivod() {
+	std::vector<Vivod> dogovors;
+	data_dogovor_file(dogovors);
+	TablePrinter tp(&std::cout);
+	tp.AddColumn("Номер паспорта", 14);
+	tp.AddColumn("Код услуги", 11);
+	tp.AddColumn("Название договора", 37);
+	tp.AddColumn("Сумма", 9);
+	tp.AddColumn("Комиссия", 9);
+	tp.AddColumn("Номер договора", 14);
+	tp.AddColumn("Дата подписания", 15);
+	tp.PrintHeader();
+	for (auto i : dogovors) {
+		tp << i.client_code << i.service_code << i.name << i.summ << i.comission << i.document_code << i.date << bprinter::endl();
+		tp.PrintFooter();
+	}
+	system("pause");
+	std::string choise = yes_no("Вы хотите вернуться в меню админестратора ? \n Введите 'yes', если да или 'no', чтобы перейти в главное меню. ");
+	if (choise == "yes") adminMenu();
+	else menu();
+};
 
 
 

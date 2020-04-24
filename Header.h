@@ -1,4 +1,12 @@
 #pragma once
+#include "table_printer.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
+#if defined(USE_BOOST_KARMA)
+#include <boost/spirit/include/karma.hpp>
+namespace karma = boost::spirit::karma;
+#endif
+using bprinter::TablePrinter;
 #include "Sha256.h"
 #include <iostream>
 #include <string>
@@ -13,17 +21,18 @@ class information;
 class dogovor;
 class data;
 class Client;
+class Vivod;
 
 
 void User_haveAccount(std::vector<logpass>&);//вопрос о имении аккаунта
 void Admin_haveAccount(std::vector<logpass>&);//вопрос о персонализации личности
 int getInt(std::string);// получение целого
 void menu();//меню 1-го уровня
-void data_user_file(std::vector<logpass>& );//получение данных логина/пароля пользователя
-void data_admin_file(std::vector<logpass>&);//получение данных логина/пароля админа
+void data_user_file(std::vector<logpass>& );//получение данных логина/пароля пользователя, чтение файла
+void data_admin_file(std::vector<logpass>&);//получение данных логина/пароля админа, чтение файла
 void admin_enter_account(std::vector<logpass>&);//вход под админом
 std::string getString(std::string);//получение строки с сообщением
-void data_client_file(std::vector<information>&);//получение инфы о клиенте из файла
+void data_client_file(std::vector<information>&);//получение инфы о клиенте из файла,чтение файла
 void rewrite_user_file(std::vector<logpass>&);
 void data_passport_file(std::vector<information>&);//получение идентификационного номера из файла
 std::string yes_no(std::string);//получение ответа да/нет
@@ -37,13 +46,13 @@ std::string telephone_number(std::string);//проверка на телефонный номер
 std::string ccs(std::string);// проверка на ввод страны, города и улицы
 std::string hf(std::string);// проверка на номер дома и квартиры
 std::string date(std::string);//ввод даты
-std::string service_code(std::string);
-std::string dogovor_name(std::string);
+std::string service_code(std::string);//взятие номера договора
+std::string dogovor_name(std::string);//взятие названия договора
 void add_document_code();//добавление номера договора
 std::string document_code(int, bool&);//проверка ввода договора
 void dogovor_code(std::vector<dogovor>&);//чтение файла с номерами договоров
 std::string summ(std::string);//проверка на сумму
-
+void  data_dogovor_file(std::vector<Vivod>&);
 
 
 
@@ -120,4 +129,15 @@ class Admin :public Client
 	bool add_client_code_into_dogovor();// проверить код клиента и добавить его в файл с договором
 	void add_dogovor();//добавить договор
 	bool check_login_once();//Для проверки есть ли такой пользователь в базе
+	void vivod();
+};
+class Vivod {
+public:
+	std::string client_code;
+	std::string service_code;
+	std::string name;
+	std::string summ;
+	std::string comission;
+	std::string document_code;
+	std::string date;
 };

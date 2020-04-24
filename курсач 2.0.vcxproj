@@ -154,12 +154,15 @@
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="functionsOfClasses.cpp" />
     <ClCompile Include="Sha256.cpp" />
+    <ClCompile Include="table_printer.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="курсач 2.0.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />
     <ClInclude Include="Sha256.h" />
+    <ClInclude Include="table_printer.h" />
+    <ClInclude Include="table_printer.tpp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

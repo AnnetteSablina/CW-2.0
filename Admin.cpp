@@ -112,6 +112,8 @@ void Admin::enterAccount(std::vector<logpass>&admins) {
 void Admin::adminMenu() {
 	system("cls");
 	int a,b,c,d,e;
+	std::string choise = "";
+	std::string choise1 = "";
 	bool check=true;
 	bool run = true;
 	bool run1 = true;
@@ -123,41 +125,41 @@ void Admin::adminMenu() {
 		switch (a) {
 		case 1:
 			system("cls");
-			std::string choise = yes_no("Клиент имеет логин и пароль? Введите yes или no.");
+			choise = yes_no("Клиент имеет логин и пароль? Введите yes или no.");
 			if (choise == "yes") {
 				check=check_login_once();
 				if (!check) {
 					system("cls");
 					std::cout << "Пользователя с таким логином не существует." << std::endl;
 					std::cout << "Добавьте информацию о пользователе." << std::endl;
-					Sleep(2000);
+					system("pause");
 					addlogpass();
 				}
 			}
 			else {
 				system("cls");
 				std::cout << "Добавьте информацию о пользователе." << std::endl;
-				Sleep(2000);
+				system("pause");
 				addlogpass();
 			}
-			Sleep(2500);
-			std::string choise1 = yes_no("Клиент имеет заполненные данные в базе? Введите yes или no.");
+			system("pause");
+			choise1 = yes_no("Клиент имеет заполненные данные в базе? Введите yes или no.");
 			if (choise1 == "yes") {
 				check=add_client_code_into_dogovor();
 				if (check) {
 					system("cls");
 					std::cout << "Информации об этом пользователе не было и вы добавили его идентификационный номер в базу." << std::endl;
 					std::cout << "Добавим информацию о пользователе." << std::endl;
-					Sleep(2500);
+					system("pause");
 					add_user_information_dogovor();
 					std::cout << "Данные успешно добавлены." << std::endl;
-					Sleep (2500);
+					system("pause");
 					add_dogovor();
 				}
 				else {
 					system("cls");
 					std::cout << "Данные клиента уже есть в базе." << std::endl;
-					Sleep(2500);
+					system("pause");
 					add_dogovor();
 				}
 			}
@@ -167,26 +169,30 @@ void Admin::adminMenu() {
 					system("cls");
 					std::cout << "Информации об этом пользователе не было и вы добавили его идентификационный номер в базу." << std::endl;
 					std::cout << "Добавим информацию о пользователе." << std::endl;
-					Sleep(2500);
+					system("pause");
 					add_user_information_dogovor();
 					std::cout << "Данные успешно добавлены." << std::endl;
-					Sleep(2500);
+					system("pause");
 					add_dogovor();
 				}
 				else {
 					system("cls");
 					std::cout << "Данные клиента уже есть в базе." << std::endl;
-					Sleep(2500);
+					system("pause");
 					add_dogovor();
 				}
 
-			}
-			
-			
-
+			}break;
+		case 2:
+			system("cls");
 			break;
-			
-
+		case 3:
+			system("cls");
+			vivod();
+			break;
+		case 4:
+			system("cls");
+			break;
 		}
 	}
 }
@@ -202,14 +208,14 @@ bool Admin::add_client_code_into_dogovor() {
 		user.client_code = client_code("Введите код клиента.");
 		neban = true;
 	for (auto i : passport) {
-			if (sha256(i.client_code) == user.client_code) {
+			if (i.client_code == user.client_code) {
 				u++;
 				system("cls");
 				std::ofstream file2("dogovor.txt", std::ios::app);
-				file2 <<sha256( i.client_code) << std::endl;
+				file2 << user.client_code<< std::endl;
 				file2.close();
 				std::ofstream file3("magic.txt", std::ios::app);
-				file3 << sha256(i.client_code )<< std::endl << i.name << std::endl << i.surname << std::endl;
+				file3 << user.client_code << std::endl << i.name << std::endl << i.surname << std::endl;
 				file3.close();
 				neban = true;
 				next = false;
@@ -220,16 +226,16 @@ bool Admin::add_client_code_into_dogovor() {
 		
 		if(u==0){
 		std::ofstream file("passport.txt", std::ios::app);
-		file << sha256(user.client_code)<< std::endl;
+		file << user.client_code<< std::endl;
 		file.close();
 		std::ofstream file1("dogovor.txt", std::ios::app);
-		file1 << sha256(user.client_code) << std::endl;
+		file1 << user.client_code << std::endl;
 		file1.close();
 		std::ofstream file4("magic.txt", std::ios::app);
-		file4 << sha256(user.client_code) << std::endl;
+		file4 << user.client_code << std::endl;
 		file4.close();
 		std::ofstream file5("info.txt", std::ios::app);
-		file5 << sha256(user.client_code )<< std::endl;
+		file5 << user.client_code << std::endl;
 		file5.close();
 		next = true;
 	}
