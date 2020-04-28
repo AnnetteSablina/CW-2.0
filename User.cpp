@@ -59,6 +59,20 @@ void data_passport_file(std::vector<information>&passport) {
 	if (!passport.empty()) passport.erase(passport.end() - 1);
 	file.close();
 }
+void data_magic_file(std::vector<information>& magic) {
+	std::ifstream file("magic.txt");
+	while (file)
+	{
+		information temp;
+		std::getline(file, temp.client_code);
+		std::getline(file, temp.name);
+		std::getline(file, temp.surname);
+		magic.push_back(temp);
+	}
+	if (!magic.empty()) magic.erase(magic.end() - 1);
+	file.close();
+
+}
 void Client::enterAccount(std::vector<logpass>& users) {
 	system("cls");
 	bool access = true;
@@ -125,10 +139,10 @@ std::string login(int type, bool& access, bool& exit) {
 			break;
 		}
 
-		if (login.size() < 5)
+		if (login.size() < 5 || login.size() > 15 )
 		{
 			
-			login = getString("¬ведите логин из 5 или более символов. ƒл€ выхода введите menu.");
+			login = getString("¬ведите логин от 5 до 15 символов. ƒл€ выхода введите menu.");
 			continue;
 		}
 
@@ -189,9 +203,12 @@ void Client::userMenu(std::vector<logpass>& users) {
 	std::cout << "user menu" << std::endl;
 }
 void data_client_file(std::vector<information>& userss) {
-	std::ifstream file("data.txt");
-	while (!file.eof()) {
+	std::ifstream file("info.txt");
+	while (file) {
 		information temp;
+		getline(file, temp.client_code);
+		getline(file, temp.name);
+		getline(file, temp.surname);
 		getline(file, temp.telephone_number);
 		getline(file, temp.country);
 		getline(file, temp.city);
@@ -200,6 +217,7 @@ void data_client_file(std::vector<information>& userss) {
 		getline(file, temp.flatnumber);
 		userss.push_back(temp);
 	}
+	if (!userss.empty()) userss.erase(userss.end() - 1);
 	file.close();
 }
 void rewrite_user_file(std::vector<logpass>&users)
@@ -210,6 +228,7 @@ void rewrite_user_file(std::vector<logpass>&users)
 		file << i.login << std::endl << sha256(i.password) << std::endl;
 
 	file.close();
+	return;
 }
 void data_dogovor_file(std::vector<Vivod> &dogovors) {
 	std::ifstream file("dogovor.txt");
@@ -226,6 +245,7 @@ void data_dogovor_file(std::vector<Vivod> &dogovors) {
 		}
 	if (!dogovors.empty()) dogovors.erase(dogovors.end() - 1);
 	file.close();
+	return;
 
 }
 void Admin::vivod() {
@@ -249,6 +269,97 @@ void Admin::vivod() {
 	if (choise == "yes") adminMenu();
 	else menu();
 };
+std::string login1(std::string message) {
+	std::string login1;
+	for (int k = 0;;) {
+		std::cout << message << std::endl;
+		int u = 0;
+		int s = 0;
+		std::getline(std::cin, login1);
+		system("cls");
+		for (unsigned int i = 0; i < login1.size(); i++) {
+			if (login1.size() < 5 || login1.size() > 15) {
+				s++;
+				std::cout << "¬ведите логин от 5 до 15 символов." << std::endl;
+				break;
+			}
+			if (login1[i] == ' ') {
+				s++;
+				std::cout << " ¬ведите без пробелов" << std::endl;
+				break;
+			}
+		}
+		if (s == 0) {
+			for (unsigned int i = 0; i < login1.size(); i++) {
+
+				if (login1[i] >= 'a' && login1[i] <= 'z' || login1[i] >= '0' && login1[i] <= '9' || login1[0] >= 'A' && login1[0] <= 'Z')
+					u++;
+				else {
+					std::cout << "»спользуйте буквы латинского алфавита и цифры и  дл€ ввода" << std::endl;
+					u = 0;
+					break;
+				}
+				if (u == 0)
+					break;
+				if (u == login1.size()) {
+					break;
+
+				}
+			}
+		}
+		if (u == login1.size()) {
+			break;
+
+		}
+	}
+	return login1;
+}
+std::string password1(std::string message) {
+	std::string password1;
+	for (int k = 0;;) {
+		std::cout << message << std::endl;
+		int u = 0;
+		int s = 0;
+		std::getline(std::cin, password1);
+		system("cls");
+		for (unsigned int i = 0; i < password1.size(); i++) {
+			if (password1.size() < 8 || password1.size() > 12) {
+				s++;
+				std::cout << "ѕароль должен содержать  от 8 до 12 символов." << std::endl;
+				break;
+			}
+			if (password1[i] == ' ') {
+				s++;
+				std::cout << " ¬ведите без пробелов" << std::endl;
+				break;
+			}
+		}
+		if (s == 0) {
+			for (unsigned int i = 0; i < password1.size(); i++) {
+
+				if (password1[i] >= 'a' && password1[i] <= 'z' || password1[i] >= '0' && password1[i] <= '9' || password1[0] >= 'A' && password1[0] <= 'Z')
+					u++;
+				else {
+					std::cout << "»спользуйте буквы латинского алфавита и цифры и  дл€ ввода" << std::endl;
+					u = 0;
+					break;
+				}
+				if (u == 0)
+					break;
+				if (u == password1.size()) {
+					break;
+				}
+			}
+		}
+		if (u == password1.size()) {
+			break;
+
+		}
+	}
+	return password1;
+
+}
+
 
 
 

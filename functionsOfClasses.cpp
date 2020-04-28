@@ -244,8 +244,12 @@ std::string date(std::string message) {
 
 		break;
 	}
-	
-	std::string date = std::to_string(day) + "." + std::to_string(month) + "." + std::to_string(year);
+   std::string day1 = std::to_string(day);
+	std::string month1 = std::to_string(month);
+	std::string year1 = std::to_string(year);
+	if (day1 == "1" || day1 == "2" || day1 == "3" || day1 == "4" || day1 == "5" || day1 == "6" || day1 == "7" || day1 == "8" || day1 == "9"  ) { day1 = "0" + day1; }
+	if (month1 == "1" || month1 == "2" || month1 == "3" || month1 == "4" || month1 == "5" || month1 == "6" || month1 == "7" || month1 == "8" || month1 == "9") { month1 = "0" + month1; }
+	std::string date = day1 + "." + month1 + "." + year1;
 	return date;
 
 }
@@ -401,16 +405,16 @@ std::string ns(std::string message) {
 	return ns;
 }
 std::string yes_no(std::string message) {
-	std::string trololo;
+	std::string vibor;
 	while (true) {
 		system("cls");
 		std::cout << message << std::endl;
-		getline(std::cin, trololo);
-		if (trololo != "yes" && trololo != "no")
+		getline(std::cin,vibor);
+		if (vibor != "yes" && vibor != "no")
 			continue;
 		else break;
 	}
-	return trololo;
+	return vibor;
 }
 void user_file(std::vector<std::string> &users, std::vector<std::string> &password) {
 	{
@@ -629,4 +633,276 @@ std::string summ(std::string message) {
 		}
 	}
 	return summ;
+}
+std::string dogovor_code1(std::string message) {
+	std::string dogovor_code;
+	for (int k = 0;;) {
+		std::cout << message << std::endl;
+		int u = 0;
+		int s = 0;
+		std::getline(std::cin, dogovor_code);
+		system("cls");
+		for (unsigned int i = 0; i < dogovor_code.size(); i++) {
+			if (dogovor_code.size() != 10) {
+				s++;
+				std::cout << "Номер договора должен содержать 10 символов." << std::endl;
+				break;
+			}
+			if (dogovor_code[i] == ' ') {
+				s++;
+				std::cout << " Введите без пробелов" << std::endl;
+				break;
+			}
+		}
+		if (s == 0) {
+			for (unsigned int i = 0; i < dogovor_code.size(); i++) {
+
+				if (dogovor_code[i] >= 'a' && dogovor_code[i] <= 'z' || dogovor_code[i] >= '0' && dogovor_code[i] <= '9' || dogovor_code[0] >= 'A' && dogovor_code[0] <= 'Z')
+					u++;
+				else {
+					std::cout << "Используйте буквы латинского алфавита и цифры и  для ввода" << std::endl;
+					u = 0;
+					break;
+
+
+				}
+				if (u == 0)
+					break;
+				if (u == dogovor_code.size()) {
+					break;
+
+				}
+			}
+		}
+
+
+		if (u == dogovor_code.size()) {
+			break;
+
+		}
+	}
+	return dogovor_code;
+	
+}
+void find_dogovor_number() {
+	int u=0;
+	std::string dogovor_number;
+	dogovor_number = dogovor_code1("Введите номер договора.");
+	std::vector<Vivod> dogovors;
+	data_dogovor_file(dogovors);
+	TablePrinter tp(&std::cout);
+	tp.AddColumn("Номер договора", 14);
+	tp.AddColumn("Код услуги", 11);
+	tp.AddColumn("Название договора", 37);
+	tp.AddColumn("Сумма", 9);
+	tp.AddColumn("Комиссия", 9);
+	tp.AddColumn("Дата подписания", 15);
+	tp.AddColumn("Номер паспорта", 14);
+	tp.PrintHeader();
+
+	for (auto i : dogovors) {
+		if (dogovor_number == i.document_code) {
+			u++;
+			tp << i.document_code << i.service_code << i.name << i.summ << i.comission << i.date << i.client_code << bprinter::endl();
+			tp.PrintFooter();
+		}
+		
+	}
+	if (u == 0) {
+		tp << " " << bprinter::endl();
+		tp.PrintFooter();
+		std::cout << "Такого номера договора в базе не существует." << std::endl;
+	}
+	return;
+	
+} 
+void find_date() {
+	int u = 0;
+	std::string date1;
+	date1 = date("Введите дату.");
+	std::vector<Vivod> dogovors;
+	data_dogovor_file(dogovors);
+	TablePrinter tp(&std::cout);
+	tp.AddColumn("Дата подписания", 15);
+	tp.AddColumn("Номер паспорта", 14);
+	tp.AddColumn("Номер договора", 14);
+	tp.AddColumn("Код услуги", 11);
+	tp.AddColumn("Название договора", 37);
+	tp.AddColumn("Сумма", 9);
+	tp.AddColumn("Комиссия", 9);
+	tp.PrintHeader();
+
+	for (auto i : dogovors) {
+		if (date1 == i.date) {
+			u++;
+			tp << i.date << i.client_code << i.document_code << i.service_code << i.name << i.summ << i.comission << bprinter::endl();
+			tp.PrintFooter();
+		}
+
+	}
+	if (u == 0) {
+		tp << " " << bprinter::endl();
+		tp.PrintFooter();
+		std::cout << "В такой день договор не заключали." << std::endl;
+	}
+	return;
+
+
+}
+void find_passport() {
+	int u = 0;
+	std::string passport;
+	passport = client_code("Введите номер паспорта.");
+	std::vector<Vivod> dogovors;
+	data_dogovor_file(dogovors);
+	TablePrinter tp(&std::cout);
+	tp.AddColumn("Номер паспорта", 14);
+	tp.AddColumn("Номер договора", 14);
+	tp.AddColumn("Код услуги", 11);
+	tp.AddColumn("Название договора", 37);
+	tp.AddColumn("Сумма", 9);
+	tp.AddColumn("Комиссия", 9);
+	tp.AddColumn("Дата подписания", 15);
+	tp.PrintHeader();
+
+	for (auto i : dogovors) {
+		if (passport == i.client_code) {
+			u++;
+			tp << i.client_code << i.document_code << i.service_code << i.name << i.summ << i.comission << i.date  << bprinter::endl();
+			tp.PrintFooter();
+		}
+
+	}
+	if (u == 0) {
+		tp << " " << bprinter::endl();
+		tp.PrintFooter();
+		std::cout << "На этот номер паспорта не зарегистрирован договор." << std::endl;
+	}
+	return;
+
+}
+void find_service() {
+	int u = 0;
+	std::string service;
+	service = service_code("Введите номер услуги.\n 1111 - Доверенность. \n 2222 - Брачный договор. \n 3333 - Завещание. \n 4444 - Приватизация. \n 5555 - Исполнительные надписи. \n 6666 - Отчуждение недвижимого имущества. \n 7777 - Соглашение об уплате алиментов. \n 8888 - Соглашение на выезд ребенка из страны. \n 9999 - Согласие. ");
+	std::vector<Vivod> dogovors;
+	data_dogovor_file(dogovors);
+	TablePrinter tp(&std::cout);
+	tp.AddColumn("Код услуги", 11);
+	tp.AddColumn("Название договора", 37);
+	tp.AddColumn("Номер договора", 14);
+	tp.AddColumn("Номер паспорта", 14);
+	tp.AddColumn("Сумма", 9);
+	tp.AddColumn("Комиссия", 9);
+	tp.AddColumn("Дата подписания", 15);
+	tp.PrintHeader();
+
+	for (auto i : dogovors) {
+		if (service == i.service_code) {
+			u++;
+			tp << i.service_code << i.name << i.document_code << i.client_code  << i.summ << i.comission << i.date << bprinter::endl();
+			tp.PrintFooter();
+		}
+
+	}
+	if (u == 0) {
+		tp << " " << bprinter::endl();
+		tp.PrintFooter();
+		std::cout << "Договор такого типа не заключался." << std::endl;
+	}
+	return;
+
+}
+std::string vibor_1_2_3_4_5_6(std::string message) {
+	std::string vibor;
+	while (true) {
+		system("cls");
+		std::cout << message << std::endl;
+		getline(std::cin, vibor);
+		if (vibor != "1" && vibor != "2" && vibor != "3" && vibor != "4" && vibor != "5" )
+			continue;
+		else break;
+	}
+	return vibor;
+
+}
+void sort() {
+	std::vector<Vivod> dogovors;
+	data_dogovor_file(dogovors);
+	std::sort(dogovors.begin(), dogovors.end(), [](Vivod& a, Vivod& b) {
+		return a.service_code < b.service_code;
+	});
+	TablePrinter tp(&std::cout);
+	tp.AddColumn("Код услуги", 11);
+	tp.AddColumn("Название договора", 37);
+	tp.AddColumn("Номер договора", 14);
+	tp.AddColumn("Номер паспорта", 14);
+	tp.AddColumn("Сумма", 9);
+	tp.AddColumn("Комиссия", 9);
+	tp.AddColumn("Дата подписания", 15);
+	tp.PrintHeader();
+	for (auto i : dogovors) {
+		tp << i.service_code << i.name << i.document_code << i.client_code << i.summ << i.comission << i.date << bprinter::endl();
+			tp.PrintFooter();
+		}
+	return;
+}
+void changelogpass() {
+	system("cls");
+	std::vector<logpass> users;
+	data_user_file(users);
+	std::string choice;
+	std::string login = login1("Введите логин пользователя.");
+	while (true) {
+		system("cls");
+		std::cout << " Введите:  \n 1.Если хотите изменить пароль.\n 2.Если хотите изменить логин и пароль. " << std::endl;
+		getline(std::cin, choice);
+		if (choice != "1" && choice != "2")
+			continue;
+		else break;
+	}
+	system("cls");
+	int a = users.size();
+   users.erase(std::remove_if(users.begin(), users.end(), [=](logpass& a) { return a.login == login  ; }), users.end());
+   int k = users.size();
+   if (a == k) std::cout << "Пользователя с таким логином не существует." << std::endl;
+   else {
+	   if (choice == "1") {
+		   logpass temp;
+		   temp.login = login;
+		   temp.password = password1("Введите новый пароль.");
+		   users.push_back(temp);
+		   rewrite_user_file(users);
+		  
+	   }
+	   if (choice == "2") {
+	   logpass tmp;
+	   tmp.login = login1("Введите новый логин.");
+	   tmp.password = password1("Введите новый пароль");
+	   users.push_back(tmp);
+	   rewrite_user_file(users);
+	  
+      }
+   }
+   return;
+}
+void changeinfo() {
+	system("cls");
+	std::vector<information> userss;
+	data_client_file(userss);
+	std::string passport_code = client_code("Введите номер клиента, о котором хотите обновить информацию.");
+	int a = userss.size();
+	userss.erase(std::remove_if(userss.begin(), userss.end(), [=](information& a) { return a.client_code == passport_code; }), userss.end());
+	int k = userss.size();
+	information temp;
+	temp.client_code = passport_code;
+	temp.name = ns("Введите имя пользователя.");
+	temp.surname = ns("Введите фамилию пользователя.");
+	temp.telephone_number = telephone_number("Введите номер телефона клиента.");
+	temp.country = ccs("Введите страну продивания клиента.");
+	temp.city = ccs("Введите город проживания клиента.");
+	temp.street = ccs("Введите улицу проживния клиента.");
+	temp.housenumber = hf("Введите номер дома клиента.");
+	temp.flatnumber = hf("Введите номер квартиры, введите 0 ,если клиент проживает в частном доме.");
+	userss.push_back(temp);
 }

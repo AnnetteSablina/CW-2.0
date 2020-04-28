@@ -16,6 +16,7 @@ using bprinter::TablePrinter;
 #include <locale.h>
 #include <vector>
 #include <conio.h>
+#include<algorithm>
 class logpass;
 class information;
 class dogovor;
@@ -52,7 +53,23 @@ void add_document_code();//добавление номера договора
 std::string document_code(int, bool&);//проверка ввода договора
 void dogovor_code(std::vector<dogovor>&);//чтение файла с номерами договоров
 std::string summ(std::string);//проверка на сумму
-void  data_dogovor_file(std::vector<Vivod>&);
+void  data_dogovor_file(std::vector<Vivod>&);//чтение файла с договорами
+void find_dogovor_number();//поиск по номеру договора
+std::string dogovor_code1(std::string);// проверка на ввод данных договора
+std::string vibor_1_2_3_4_5_6(std::string);// функция для выбора сортировки и поиска
+void find_date();// поиск договорв по дате
+void find_passport();// поиск договоров по номеру паспорта
+void find_service();// поиск договоров по коду услуги
+void sort();//сортировка по коду услуги
+void changelogpass();//функция для изменения логина и пароля
+std::string login1(std::string );// для проверки логина
+std::string password1(std::string);//для проверки пароля
+void changeinfo();// обновить информацию о пользователе
+void data_magic_file(std::vector<information>&);//взятие данных о количестве заключенных людьми договоров
+
+
+
+
 
 
 
@@ -110,23 +127,15 @@ public:
 	Client(std::string);
 	virtual void enterAccount(std::vector<logpass>&);
 	void userMenu(std::vector<logpass>&);// меню пользователя
-    void changelogpass(std::vector<logpass>&);//сменить пароль и логин
-	int checkPasswords();//проверка на пароли
-	
-	
-
-
-};
+ };
 class Admin :public Client
 {public:
     void enterAccount(std::vector<logpass>& ) override ;//вход в аккаунт
 	void CreateAccount(std::vector<logpass>&);//создание аккаунта
-	void deleteAccount(std::vector<logpass>&);//удаление аккаунта
 	void addlogpass();//добавить пользователя(логин и пароль)
 	void adminMenu();//меню админа
 	void add_user_information_dogovor();//добавить информацию о пользователе
-	void changeinfo();
-	bool add_client_code_into_dogovor();// проверить код клиента и добавить его в файл с договором
+     bool add_client_code_into_dogovor();// проверить код клиента и добавить его в файл с договором
 	void add_dogovor();//добавить договор
 	bool check_login_once();//Для проверки есть ли такой пользователь в базе
 	void vivod();
@@ -140,4 +149,7 @@ public:
 	std::string comission;
 	std::string document_code;
 	std::string date;
+
+
+	
 };
