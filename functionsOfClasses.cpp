@@ -2,27 +2,21 @@
 logpass::logpass(std::string login, std::string password) {
 	this->login = login;
 	this->password = password;
-} // конструктор логин +пароль
-Client::Client(std::string login) {
-	this->human.login = login;
-}
-Client::Client() {
-
-}
+} 
 bool logpass::operator==(logpass human) {
 	if (this->login == human.login && this->password == human.password)
 		return true;
 	else
 		return false;
 };
-logpass::logpass() {
+ logpass::logpass() {
 }
 std::string getString(std::string p)
 {
 	system("cls");
 	std::string mystring;
 	std::cout << p << std::endl;
-	std::getline(std::cin, mystring);
+	getline(std::cin, mystring);
 	return mystring;
 }
 int getInt(std::string message) {
@@ -44,28 +38,32 @@ int getInt(std::string message) {
 	};
 	return c;
 }
-information::information( std::string telephone_number, std::string country, std::string city, std::string street, std::string housenumber, std::string flatnumber) {
-
-	this->telephone_number = telephone_number;
+information::information(std::string telephone_number, std::string country, std::string city, std::string street, std::string housenumber, std::string flatnumber, std::string kolichestvo) {
+    this->telephone_number = telephone_number;
 	this->country = country;
 	this->city = city;
 	this->street = street;
 	this->housenumber = housenumber;
 	this->flatnumber = flatnumber;
+	this->kolichestvo = kolichestvo;
 }
-information::information(){
+information::information(std::string kolichestvo) {
+	this->kolichestvo = kolichestvo;
 }
 information::information(std::string client_code,std::string name, std::string surname) {
 	this->client_code = client_code;
 	this->name = name;
 	this->surname = surname;
 }
-bool information::operator==(information user) {
-	if (this->client_code == user.client_code)
+bool information::operator==( information user) {
+	if (this->client_code==user.client_code)//&& this->name == user.name && this->surname == user.surname && this->telephone_number == user.telephone_number && this->country == user.country && this->city == user.city && this->street == user.street && this->housenumber == user.housenumber && this->flatnumber == user.flatnumber && this->kolichestvo == user.kolichestvo)
 		return true;
 	else
 		return false;
 };
+information::information() {
+
+}
 data::data(std::string date) {
 	this->date = date;
 }
@@ -93,6 +91,7 @@ std::string client_code(std::string message) {
 		int s = 0;
 		std::getline(std::cin, client_code);
 		system("cls");
+		if (client_code.empty())continue;
 		for (unsigned int i = 0; i < client_code.size(); i++) {
 			if (client_code.size() != 8) {
 				s++;
@@ -125,6 +124,7 @@ std::string client_code(std::string message) {
 				}
 			}
 		}
+		else { continue; }
 		
 			
 		if (u == client_code.size()) {
@@ -261,6 +261,7 @@ std::string telephone_number(std::string message) {
 		int s = 0;
 		std::getline(std::cin, telephone_number);
 		system("cls");
+		if (telephone_number.empty()) continue; 
 		for (unsigned int i = 0; i < telephone_number.size(); i++) {
 			if (telephone_number.size() != 9) {
 				s++;
@@ -308,6 +309,7 @@ std::string hf(std::string message) {
 		int s = 0;
 		std::getline(std::cin, hf);
 		system("cls");
+		if (hf.empty())continue;
 		for (unsigned int i = 0; i < hf.size(); i++) {
 			if (hf.size() > 3) {
 				s++;
@@ -355,6 +357,7 @@ std::string ns(std::string message) {
 		int s = 0;
 		std::getline(std::cin,ns);
 		system("cls");
+		if (ns.empty())continue;
 		for (unsigned int i = 0; i < ns.size(); i++) {
 
 			if (ns[i] == ' ') {
@@ -416,51 +419,49 @@ std::string yes_no(std::string message) {
 	}
 	return vibor;
 }
-void user_file(std::vector<std::string> &users, std::vector<std::string> &password) {
-	{
-		std::string temp;
-		std::string tr;
-		std::ifstream file("users.txt");
-		while (!file.eof())
-		{
-		    getline(file, temp);
-			std::cout << temp.size() << std::endl;
-			users.push_back(temp);
-			getline(file, tr);
-			std::cout << temp.size() << std::endl;
-			password.push_back(tr);
+void top_10() {
+	information temp;
+	std::vector<information> kolvo;
+	std::vector<information>userss;
+	std::string client_code;
+	data_magic_file(userss);
+	int c;
+	again:
+	for (auto i : userss) {
+		client_code = i.client_code;
+		c = 0;
+		for (auto i : userss) {
+			if (i.client_code == client_code)  c++; 
 		}
-		file.close();
-		if (!password.empty()) password.erase(password.end() - 1);
-
-	}
-	for (int i=0; i < users.size(); i++) {
-		std::cout << users[i] << std::endl;
-	}
-	for (int i = 0; i < password.size(); i++) {
-		std::cout << password[i] << std::endl;
-	}
-}
-void trololo() {
-	int count = 0;
-	std::string str;
-	std::vector <std::string> users;
-	std::vector<std::string> password;
-	user_file(users,password);
-	int maxcount(0), nn(0);
-	for (unsigned int i = 0; i < users.size(); i++) {
-		 count=0;
-		for ( unsigned int j = i; j < users.size(); j++) {
-			if (users[i] == users[j])
-				count++; 
-		
+		userss.erase(std::remove_if(userss.begin(), userss.end(), [=](information& i) { return i.client_code == client_code; }), userss.end());
+		if (c >= 1) {
+			temp.client_code = i.client_code;
+			temp.name = i.name;
+			temp.surname = i.surname;
+			std::string a = std::to_string(c);
+			temp.kolichestvo = a;
+			kolvo.push_back(temp);
+			
 		}
-		if (maxcount < count) {
-			maxcount = count;
-			nn = i;
-		}
+		goto again;
 	}
-	std::cout << users[nn] << " " << password[nn]<<" " << maxcount;
+	std::sort(kolvo.begin(), kolvo.end(), [](information& a, information& b) {
+		return a.kolichestvo > b.kolichestvo;
+	});
+	if (kolvo.size() > 10) {
+		kolvo.erase(kolvo.begin() + 9, kolvo.end());
+	}
+	TablePrinter tp(&std::cout);
+	tp.AddColumn("Номер паспорта", 14);
+	tp.AddColumn("Имя", 15);
+	tp.AddColumn("Фамилия", 15);
+	tp.AddColumn("Количество заключенных договоров", 35);
+	tp.PrintHeader();
+	for (auto i : kolvo) {
+		tp << i.client_code << i.name << i.surname << i.kolichestvo << bprinter::endl();
+		tp.PrintFooter();
+	}
+	return;
 };
 std::string service_code(std::string message) {
 	std::string service_code;
@@ -642,6 +643,7 @@ std::string dogovor_code1(std::string message) {
 		int s = 0;
 		std::getline(std::cin, dogovor_code);
 		system("cls");
+		if (dogovor_code.empty())continue;
 		for (unsigned int i = 0; i < dogovor_code.size(); i++) {
 			if (dogovor_code.size() != 10) {
 				s++;
@@ -685,6 +687,7 @@ std::string dogovor_code1(std::string message) {
 	
 }
 void find_dogovor_number() {
+	system("cls");
 	int u=0;
 	std::string dogovor_number;
 	dogovor_number = dogovor_code1("Введите номер договора.");
@@ -717,6 +720,7 @@ void find_dogovor_number() {
 	
 } 
 void find_date() {
+	system("cls");
 	int u = 0;
 	std::string date1;
 	date1 = date("Введите дату.");
@@ -750,6 +754,7 @@ void find_date() {
 
 }
 void find_passport() {
+	system("cls");
 	int u = 0;
 	std::string passport;
 	passport = client_code("Введите номер паспорта.");
@@ -782,6 +787,7 @@ void find_passport() {
 
 }
 void find_service() {
+	system("cls");
 	int u = 0;
 	std::string service;
 	service = service_code("Введите номер услуги.\n 1111 - Доверенность. \n 2222 - Брачный договор. \n 3333 - Завещание. \n 4444 - Приватизация. \n 5555 - Исполнительные надписи. \n 6666 - Отчуждение недвижимого имущества. \n 7777 - Соглашение об уплате алиментов. \n 8888 - Соглашение на выезд ребенка из страны. \n 9999 - Согласие. ");
@@ -827,6 +833,7 @@ std::string vibor_1_2_3_4_5_6(std::string message) {
 
 }
 void sort() {
+	system("cls");
 	std::vector<Vivod> dogovors;
 	data_dogovor_file(dogovors);
 	std::sort(dogovors.begin(), dogovors.end(), [](Vivod& a, Vivod& b) {
@@ -852,34 +859,36 @@ void changelogpass() {
 	std::vector<logpass> users;
 	data_user_file(users);
 	std::string choice;
-	std::string login = login1("Введите логин пользователя.");
-	while (true) {
-		system("cls");
-		std::cout << " Введите:  \n 1.Если хотите изменить пароль.\n 2.Если хотите изменить логин и пароль. " << std::endl;
-		getline(std::cin, choice);
-		if (choice != "1" && choice != "2")
-			continue;
-		else break;
-	}
+	std::string login = login1("Введите логин.");
 	system("cls");
 	int a = users.size();
    users.erase(std::remove_if(users.begin(), users.end(), [=](logpass& a) { return a.login == login  ; }), users.end());
    int k = users.size();
-   if (a == k) std::cout << "Пользователя с таким логином не существует." << std::endl;
-   else {
-	   if (choice == "1") {
+   if (a == k) std::cout << "Вы ввели некорректные данные. Пользователя с таким логином не существует." << std::endl;
+   if(a!=k){
+	   while (true) {
+		   system("cls");
+		   std::cout << " Введите:  \n 1.Если хотите изменить пароль.\n 2.Если хотите изменить логин и пароль. " << std::endl;
+		   getline(std::cin, choice);
+		   if (choice != "1" && choice != "2")
+			   continue;
+		   else break;
+	   }
+	  if (choice == "1") {
+		  system ("cls");
 		   logpass temp;
 		   temp.login = login;
-		   temp.password = password1("Введите новый пароль.");
+		   temp.password = sha256(password1("Введите новый пароль."));
 		   users.push_back(temp);
 		   rewrite_user_file(users);
 		  
 	   }
 	   if (choice == "2") {
+		   system("cls");
 	   logpass tmp;
 	   tmp.login = login1("Введите новый логин.");
-	   tmp.password = password1("Введите новый пароль");
-	   users.push_back(tmp);
+	   tmp.password =sha256( password1("Введите новый пароль"));
+	    users.push_back(tmp);
 	   rewrite_user_file(users);
 	  
       }
@@ -890,19 +899,50 @@ void changeinfo() {
 	system("cls");
 	std::vector<information> userss;
 	data_client_file(userss);
-	std::string passport_code = client_code("Введите номер клиента, о котором хотите обновить информацию.");
+	std::string passport_code = client_code("Введите номер паспорта для обновления информации.");
 	int a = userss.size();
-	userss.erase(std::remove_if(userss.begin(), userss.end(), [=](information& a) { return a.client_code == passport_code; }), userss.end());
+	userss.erase(std::remove_if(userss.begin(), userss.end(), [=](information& s) { return s.client_code == passport_code; }), userss.end());
 	int k = userss.size();
-	information temp;
-	temp.client_code = passport_code;
-	temp.name = ns("Введите имя пользователя.");
-	temp.surname = ns("Введите фамилию пользователя.");
-	temp.telephone_number = telephone_number("Введите номер телефона клиента.");
-	temp.country = ccs("Введите страну продивания клиента.");
-	temp.city = ccs("Введите город проживания клиента.");
-	temp.street = ccs("Введите улицу проживния клиента.");
-	temp.housenumber = hf("Введите номер дома клиента.");
-	temp.flatnumber = hf("Введите номер квартиры, введите 0 ,если клиент проживает в частном доме.");
-	userss.push_back(temp);
+	if (k != a) {
+		information temp;
+		temp.client_code = passport_code;
+		temp.name = ns("Введите имя.");
+		temp.surname = ns("Введите фамилию.");
+		temp.telephone_number = telephone_number("Введите номер телефона.");
+		temp.country = ccs("Введите страну проживания.");
+		temp.city = ccs("Введите город проживания.");
+		temp.street = ccs("Введите улицу проживания.");
+		temp.housenumber = hf("Введите номер дома.");
+		temp.flatnumber = hf("Введите номер квартиры, введите 0 ,если клиент проживает в частном доме.");
+		userss.push_back(temp);
+		rewrite_information_file(userss);
+		std::vector <information> passport;
+		data_passport_file(passport);
+		passport.erase(std::remove_if(passport.begin(), passport.end(), [=](information& s) { return s.client_code == passport_code; }), passport.end());
+		information tmp;
+		tmp.client_code = passport_code;
+		tmp.name = temp.name;
+		tmp.surname = temp.surname;
+		passport.push_back(tmp);
+		rewrite_passport_file(passport);
+		std::vector <information> magic;
+		data_magic_file(magic);
+		int n = 0;
+		for (auto i : magic) {
+			if (i.client_code == passport_code) {
+				n++;
+			}
+		}
+		magic.erase(std::remove_if(magic.begin(), magic.end(), [=](information& s) { return s.client_code == passport_code; }), magic.end());
+		for (int i = 0; i < n; i++) {
+			magic.push_back(tmp);
+		}
+		rewrite_magic_file(magic);
+		return;
+	}
+	else {
+		std::cout << "Такого номера паспорта в нотариальной базе нет." << std::endl;
+		return;
+	}
+	return;
 }

@@ -164,6 +164,9 @@
     <ClInclude Include="table_printer.h" />
     <ClInclude Include="table_printer.tpp.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -32,11 +32,10 @@ void User_haveAccount(std::vector<logpass>&users) {
 
 
 }
-void data_user_file(std::vector<logpass>& users)	 
-	{
-		std::ifstream file("users.txt");
+void data_user_file(std::vector<logpass>& users){	 
+	std::ifstream file("users.txt");
 		while (file)
-		{
+		{   
 			logpass temp;
 			getline(file, temp.login);
 			getline(file, temp.password);
@@ -44,8 +43,7 @@ void data_user_file(std::vector<logpass>& users)
 		}
 		if (!users.empty()) users.erase(users.end() - 1);
 		file.close();
-
-	}
+}
 void data_passport_file(std::vector<information>&passport) {
 	std::ifstream file("passport.txt");
 	while (file)
@@ -101,7 +99,7 @@ void Client::enterAccount(std::vector<logpass>& users) {
 		menu();
 	};
 	if (access) {
-		userMenu(users);
+		userMenu();
 	}
 
 
@@ -109,27 +107,27 @@ void Client::enterAccount(std::vector<logpass>& users) {
 std::string login(int type, bool& access, bool& exit) {
 	bool run = true;
 	int u=0;
-	std::string login;
+	std::string login ;
 	switch (type) {
-	case 1:
+	case 0:
 		system("cls");
-		if (access) {
-			login = getString("Введите логин. Для выхода введите menu.");
-		}
-		else {
-			login = getString("Введите логин еще раз. Для выхода введите menu.");
-		};
+		login = getString("Введите логин.Для выхода введите menu.");
 		break;
-	case 2:
+	case 1: 
+		system("cls");
+		login = getString("Введите логин.Для выхода введите menu.");
+		login = getString("Введите логин.Для выхода введите menu.");
+		break;
+	 case 2:
 		system("cls");
 		login = getString("Вы ввели неверные логин или пароль. Введите логин еще раз. Для выхода введите menu.");
 		break;
-	case 3:
+	 case 3:
 		system("cls");
 		login = getString("Такой логин уже существует. Введите логин еще раз или для выхода введите menu.");
 		break;
+
 	};
-	
 	do
 	{
 		u = 0;
@@ -138,11 +136,10 @@ std::string login(int type, bool& access, bool& exit) {
 			exit = true;
 			break;
 		}
-
+		
 		if (login.size() < 5 || login.size() > 15 )
 		{
-			
-			login = getString("Введите логин от 5 до 15 символов. Для выхода введите menu.");
+			login = getString("Введите логин от 5 до 15 символов. Для выхода введите menu."); 
 			continue;
 		}
 
@@ -177,6 +174,7 @@ std::string password(bool& exit) {
 		}
 		if (password.size() < 8 || password.size() > 12)
 		{
+			
 			password = getString("Пароль должен содержать  от 8 до 12 символов. Для выхода введите menu.");
 			continue;
 		}
@@ -198,9 +196,26 @@ std::string password(bool& exit) {
 	} while (true);
 	return password;
 };
-void Client::userMenu(std::vector<logpass>& users) {
+void Client::userMenu() {
 	system("cls");
-	std::cout << "user menu" << std::endl;
+	std::string choise = user_choise("МЕНЮ ПОЛЬЗОВАТЕЛЯ \n 1.Найти договор по его номеру. \n 2.Найти договор по номеру паспорта. \n 3.Найти договор по дате заключения. \n 4.Изменить логин или пароль. \n 5.Изменить информацию о себе. \n 6.Выйти в главное меню.");
+	if (choise == "1") find_dogovor_number();
+	if (choise == "2") find_passport();
+	if (choise == "3")find_date();
+	if (choise == "4")changelogpass();
+	if (choise == "5")changeinfo();
+	if (choise == "6")menu();
+	system("pause");
+	std::string next = yes_no("Введите: \n 1.'yes',eсли хотите вернуться в меню пользователя. \n 2.'no',eсли хотите вернуться в главное меню ");
+	if (next == "yes") {
+		userMenu();
+		return;
+	}
+	if (next == "no") {
+		menu();
+		return;
+	}
+	return;
 }
 void data_client_file(std::vector<information>& userss) {
 	std::ifstream file("info.txt");
@@ -225,8 +240,30 @@ void rewrite_user_file(std::vector<logpass>&users)
 	std::ofstream file("users.txt", std::ios::trunc);
 
 	for (auto i : users)
-		file << i.login << std::endl << sha256(i.password) << std::endl;
+		file << i.login << std::endl << i.password << std::endl;
 
+	file.close();
+	return;
+}
+void rewrite_information_file(std::vector <information>& userss) {
+	std::ofstream file("info.txt", std::ios::trunc);
+	for (auto i : userss)
+		file << i.client_code << std::endl << i.name << std::endl << i.surname << std::endl << i.telephone_number << std::endl << i.country << std::endl << i.city << std::endl << i.street << std::endl << i.housenumber << std::endl << i.flatnumber << std::endl;
+	file.close();
+	return;
+}
+void rewrite_passport_file(std::vector <information>& passport) {
+	std::ofstream file("passport.txt", std::ios::trunc);
+	for (auto i : passport)
+		file << i.client_code << std::endl << i.name << std::endl << i.surname << std::endl;
+	file.close();
+	return;
+
+}
+void rewrite_magic_file(std::vector <information>& magic) {
+	std::ofstream file("magic.txt", std::ios::trunc);
+	for (auto i : magic)
+		file << i.client_code << std::endl << i.name << std::endl << i.surname << std::endl;
 	file.close();
 	return;
 }
@@ -358,6 +395,90 @@ std::string password1(std::string message) {
 	}
 	return password1;
 
+}
+void delete_user() {
+	system("cls");
+	std::vector<logpass> users;
+	data_user_file(users);
+	std::vector<information> userss;
+	data_client_file(userss);
+	std::vector <information> passport;
+	data_passport_file(passport);
+	std::string login = login1("Введите логин пользователя, который хотите удалить.");
+	int a = users.size();
+	users.erase(std::remove_if(users.begin(), users.end(), [=](logpass& s) { return s.login == login; }), users.end());
+	int k = users.size();
+	if (a == k) {
+		std::cout << "Пользователя с таким логином не существует." << std::endl;
+		return;
+	}
+	else {
+		while (true) {
+			std::string passport_code = client_code("Введите номер паспорта клиента");
+			a = userss.size();
+			userss.erase(std::remove_if(userss.begin(), userss.end(), [=](information& a) { return a.client_code == passport_code; }), userss.end());
+			k = userss.size();
+			if (a == k) {
+				std::cout << "Вы ввели некорректрый номер паспорта повторите еще раз." << std::endl;
+				continue;
+			}
+			else {
+				passport.erase(std::remove_if(passport.begin(), passport.end(), [=](information& r) { return r.client_code == passport_code; }), passport.end());
+				rewrite_user_file(users);
+				rewrite_information_file(userss);
+				rewrite_passport_file(passport);
+				break;
+			}
+		}
+	}
+	return;
+};
+void add_information() {
+	system("cls");
+	information user;
+	std::vector<information> passport;
+	data_passport_file(passport);
+	while (true) {
+		int w = 0;
+		user.client_code = client_code("Введите номер паспорта");
+		system("cls");
+		for (auto a : passport) {
+			if (user.client_code == a.client_code) {
+				w++;
+				std::cout << "Такой номер паспорта уже существует. Повторите ввод.";
+				break;
+			}
+		}
+		if (w == 0) { break; }
+		else { continue; }
+	}
+	user.name = ns("Введите имя.");
+	user.surname = ns("Введите фамилию.");
+	user.telephone_number = telephone_number("Введите номер телефона клиента.");
+	user.country = ccs("Введите страну проживания");
+	user.city = ccs("Введите город проживания.");
+	user.street = ccs("Введите улицу проживания.");
+	user.housenumber = hf("Введите номер дома.");
+	user.flatnumber = hf("Введите номер квартиры. Введите 0, если клиент проживает в частном доме.");
+	std::ofstream file("info.txt", std::ios::app);
+	file << user.client_code << std::endl<<  user.name << std::endl << user.surname << std::endl << user.telephone_number << std::endl << user.country << std::endl << user.city << std::endl << user.street << std::endl << user.housenumber << std::endl << user.flatnumber << std::endl;
+	file.close();
+	std::ofstream file1("passport.txt",std::ios::app);
+	file1 << user.client_code << std::endl << user.name << std::endl << user.surname << std::endl;
+	file1.close();
+	return;
+}
+std::string user_choise(std::string message) {
+	std::string vibor;
+	while (true) {
+		system("cls");
+		std::cout << message << std::endl;
+		getline(std::cin, vibor);
+		if (vibor != "1" && vibor != "2" && vibor != "3" && vibor != "4" && vibor != "5" && vibor != "6")
+			continue;
+		else break;
+	}
+	return vibor;
 }
 
 

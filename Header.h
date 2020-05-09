@@ -24,7 +24,7 @@ class data;
 class Client;
 class Vivod;
 
-
+void add_information();//добавить информацию о пользователе
 void User_haveAccount(std::vector<logpass>&);//вопрос о имении аккаунта
 void Admin_haveAccount(std::vector<logpass>&);//вопрос о персонализации личности
 int getInt(std::string);// получение целого
@@ -39,8 +39,7 @@ void data_passport_file(std::vector<information>&);//получение идентификационног
 std::string yes_no(std::string);//получение ответа да/нет
 std::string login(int, bool&, bool&);//проверка на ввод логина
 std::string password(bool&);//проверка на ввод парол€
-void user_file(std::vector<std::string>&, std::vector<std::string>&);//основа дл€ самого частого пользовател€
-void trololo();//основа дл€ самого частого пользовател€
+void top_10();//10 самых активных клиентов
 std::string ns(std::string);//проверка на ввод имени и фамилии
 std::string client_code(std::string);//проверка на ввод кода клиента
 std::string telephone_number(std::string);//проверка на телефонный номер
@@ -66,8 +65,13 @@ std::string login1(std::string );// дл€ проверки логина
 std::string password1(std::string);//дл€ проверки парол€
 void changeinfo();// обновить информацию о пользователе
 void data_magic_file(std::vector<information>&);//вз€тие данных о количестве заключенных людьми договоров
-
-
+void rewrite_information_file(std::vector <information>&);
+void rewrite_passport_file(std::vector <information>&);
+void rewrite_magic_file(std::vector <information>&);
+void delete_user();//удаление пользовател€
+std::string admin_choise(std::string);
+bool addlogpass();//добавить пароль
+std::string user_choise(std::string);//выбор пользовател€ меню
 
 
 
@@ -86,7 +90,7 @@ public:
 };
 class information {
 public:
-	information(std::string, std::string, std::string, std::string,std::string,std::string);// конструктор дл€ всех полей кроме кода клиента
+	information(std::string, std::string, std::string, std::string,std::string,std::string,std::string);// конструктор дл€ всех полей кроме кода клиента
 	std::string client_code;// код клиента/номер паспорта
 	std::string name;//»м€
 	std::string surname;//‘амили€
@@ -96,9 +100,11 @@ public:
 	std::string street;//”лица
 	std::string housenumber;//Ќомер дома
 	std::string flatnumber;//Ќомер квартиры
+    std::string kolichestvo;//количество заключенных договоров
+	information(std::string);
 	information();// онструктор по умолчанию
 	information(std::string, std::string, std::string);//конструктор дл€ номера паспорта,имени и фамилии
-	bool operator==(information user);//перегрузка оператора ==
+   bool operator == ( information user );//перегрузка оператора ==
 };
 class dogovor {
 public:
@@ -123,16 +129,13 @@ public:
 	information user;
 	dogovor dogovorka;
 	data datas;
-	Client();//конструктор по умолчанию
-	Client(std::string);
-	virtual void enterAccount(std::vector<logpass>&);
-	void userMenu(std::vector<logpass>&);// меню пользовател€
+	virtual void enterAccount(std::vector<logpass>&);//¬ход в аккаунт
+	void userMenu();// меню пользовател€
+	
  };
 class Admin :public Client
 {public:
     void enterAccount(std::vector<logpass>& ) override ;//вход в аккаунт
-	void CreateAccount(std::vector<logpass>&);//создание аккаунта
-	void addlogpass();//добавить пользовател€(логин и пароль)
 	void adminMenu();//меню админа
 	void add_user_information_dogovor();//добавить информацию о пользователе
      bool add_client_code_into_dogovor();// проверить код клиента и добавить его в файл с договором
@@ -149,7 +152,4 @@ public:
 	std::string comission;
 	std::string document_code;
 	std::string date;
-
-
-	
 };
