@@ -65,11 +65,11 @@ std::string login1(std::string );// для проверки логина
 std::string password1(std::string);//для проверки пароля
 void changeinfo();// обновить информацию о пользователе
 void data_magic_file(std::vector<information>&);//взятие данных о количестве заключенных людьми договоров
-void rewrite_information_file(std::vector <information>&);
-void rewrite_passport_file(std::vector <information>&);
-void rewrite_magic_file(std::vector <information>&);
+void rewrite_information_file(std::vector <information>&);//перезаписать файл с информацией
+void rewrite_passport_file(std::vector <information>&);//перезписать файл с паспортными данными
+void rewrite_magic_file(std::vector <information>&);//перепизаписать файл с количесвом заключенных договоров
 void delete_user();//удаление пользователя
-std::string admin_choise(std::string);
+std::string admin_choise(std::string);//выбор пункта меню админестратора
 bool addlogpass();//добавить пароль
 std::string user_choise(std::string);//выбор пользователя меню
 
