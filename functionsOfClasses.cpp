@@ -314,13 +314,11 @@ std::string ns(std::string message) {
 		system("cls");
 		if (ns.empty())continue;
 		for (unsigned int i = 0; i < ns.size(); i++) {
-
 			if (ns[i] == ' ') {
 				s++;
 				std::cout << "Не используйте пробелы." << std::endl;
 				break;
 			}
-
 		}
 		if (s == 0) {
 			for (unsigned int i = 0; i < ns.size(); i++) {
@@ -339,7 +337,6 @@ std::string ns(std::string message) {
 				for (i; i < ns.size(); i++) {
 					if (ns[i] >= 'a' && ns[i] <= 'z')
 						u++;
-
 					else {
 						std::cout << " Используйте буквы латинского алфавита .\n Остальные символы - строчные буквы.Введите имя еще раз." << std::endl;
 						u = 0;
@@ -347,16 +344,10 @@ std::string ns(std::string message) {
 					}
 
 				}
-
-				if (u == 0)
-					break;
-				if (u == ns.size() - 1) {
-					break;
-				}
-
+				if (u == 0)break;
+				if (u == ns.size() - 1) break;
 			}
 		}
-
 		if (u == ns.size() - 1)
 			break;
 	}
@@ -396,7 +387,6 @@ void top_10() {
 			std::string a = std::to_string(c);
 			temp.kolichestvo = a;
 			kolvo.push_back(temp);
-			
 		}
 		goto again;
 	}
@@ -453,7 +443,7 @@ void dogovor_code(std::vector<dogovor> &documentCode) {
 	}
 	if (!documentCode.empty()) documentCode.erase(documentCode.end() - 1);
 	file.close();
-
+	return;
 }
 void add_document_code() {
 	system("cls");
@@ -483,19 +473,16 @@ void add_document_code() {
 		file.close();
 	} while (!access);
 	system("cls");
-	datas.date = date("Введите дату.");
-
+	datas.date = date("Введите дату."); 
 	std::ofstream file1("dogovor.txt", std::ios::app);
 	file1 << dogovorka.document_code << std::endl<<datas.date << std::endl;
 	file1.close();
-	
-
 	std::ofstream file2("document_code.txt", std::ios::app);
 	file2 << dogovorka.document_code << std::endl ;
 	file2.close();
 	system("cls");
 	std::cout << "Вы добавили договор." << std::endl;
-	
+	return;
 }
 std::string document_code(int type, bool& access) {
 	bool run = true;
@@ -504,14 +491,9 @@ std::string document_code(int type, bool& access) {
 	switch (type) {
 	case 1:
 		system("cls");
-		if (access) {
-			document_code = getString("Введите номер договора.");
-		}
-		else {
-			document_code = getString("Введите код документа еще раз.");
-		};
+		if (access) document_code = getString("Введите номер договора.");
+		else document_code = getString("Введите код документа еще раз.");
 		break;
-
 	case 2:
 		system("cls");
 		document_code = getString("Такой номер договора уже существует в базе. Введите номер документа еще раз.");
@@ -521,7 +503,6 @@ std::string document_code(int type, bool& access) {
 			u = 0;
 			if (document_code.size() != 10)
 			{
-
 				document_code = getString("Код договора должен содержать 10 символов.");
 				continue;
 			}
@@ -534,13 +515,9 @@ std::string document_code(int type, bool& access) {
 					document_code = getString("Код договора содержит недопустимые символы.");
 					break;
 				}
-				else {
-					u++;
-				}
-			if (u == document_code.size()) {
-				break;
-			}
-	} while (true);
+				else u++;
+				if (u == document_code.size())break;
+		} while (true);
 	return document_code;
 }
 std::string summ(std::string message) {
@@ -572,22 +549,13 @@ std::string summ(std::string message) {
 					std::cout << "Используйте цифры для ввода" << std::endl;
 					u = 0;
 					break;
-
-
 				}
-				if (u == 0)
-					break;
-				if (u == summ.size()) {
-					break;
-
-				}
+				if (u == 0)break;
+				if (u == summ.size()) break;
 			}
 		}
-		if (u == summ.size()) {
-			break;
-
-		}
-	}
+		if (u == summ.size())break;
+    }
 	return summ;
 }
 std::string dogovor_code1(std::string message) {
@@ -620,26 +588,14 @@ std::string dogovor_code1(std::string message) {
 					std::cout << "Используйте буквы латинского алфавита и цифры и  для ввода" << std::endl;
 					u = 0;
 					break;
-
-
 				}
-				if (u == 0)
-					break;
-				if (u == dogovor_code.size()) {
-					break;
-
-				}
+				if (u == 0)break;
+				if (u == dogovor_code.size()) break;
 			}
 		}
-
-
-		if (u == dogovor_code.size()) {
-			break;
-
-		}
+		if (u == dogovor_code.size()) break;
 	}
 	return dogovor_code;
-	
 }
 void find_dogovor_number() {
 	system("cls");
@@ -657,14 +613,12 @@ void find_dogovor_number() {
 	tp.AddColumn("Дата подписания", 15);
 	tp.AddColumn("Номер паспорта", 14);
 	tp.PrintHeader();
-
 	for (auto i : dogovors) {
 		if (dogovor_number == i.document_code) {
 			u++;
 			tp << i.document_code << i.service_code << i.name << i.summ << i.comission << i.date << i.client_code << bprinter::endl();
 			tp.PrintFooter();
 		}
-		
 	}
 	if (u == 0) {
 		tp << " " << bprinter::endl();
@@ -672,7 +626,6 @@ void find_dogovor_number() {
 		std::cout << "Такого номера договора в базе не существует." << std::endl;
 	}
 	return;
-	
 } 
 void find_date() {
 	system("cls");
@@ -690,14 +643,12 @@ void find_date() {
 	tp.AddColumn("Сумма", 9);
 	tp.AddColumn("Комиссия", 9);
 	tp.PrintHeader();
-
 	for (auto i : dogovors) {
 		if (date1 == i.date) {
 			u++;
 			tp << i.date << i.client_code << i.document_code << i.service_code << i.name << i.summ << i.comission << bprinter::endl();
 			tp.PrintFooter();
 		}
-
 	}
 	if (u == 0) {
 		tp << " " << bprinter::endl();
@@ -705,8 +656,6 @@ void find_date() {
 		std::cout << "В такой день договор не заключали." << std::endl;
 	}
 	return;
-
-
 }
 void find_passport() {
 	system("cls");
@@ -724,14 +673,12 @@ void find_passport() {
 	tp.AddColumn("Комиссия", 9);
 	tp.AddColumn("Дата подписания", 15);
 	tp.PrintHeader();
-
 	for (auto i : dogovors) {
 		if (passport == i.client_code) {
 			u++;
 			tp << i.client_code << i.document_code << i.service_code << i.name << i.summ << i.comission << i.date  << bprinter::endl();
 			tp.PrintFooter();
 		}
-
 	}
 	if (u == 0) {
 		tp << " " << bprinter::endl();
@@ -739,7 +686,6 @@ void find_passport() {
 		std::cout << "На этот номер паспорта не зарегистрирован договор." << std::endl;
 	}
 	return;
-
 }
 void find_service() {
 	system("cls");
@@ -757,7 +703,6 @@ void find_service() {
 	tp.AddColumn("Комиссия", 9);
 	tp.AddColumn("Дата подписания", 15);
 	tp.PrintHeader();
-
 	for (auto i : dogovors) {
 		if (service == i.service_code) {
 			u++;
@@ -772,7 +717,6 @@ void find_service() {
 		std::cout << "Договор такого типа не заключался." << std::endl;
 	}
 	return;
-
 }
 void find_user() {
 	system("cls");
@@ -790,7 +734,6 @@ void find_user() {
 	tp.AddColumn("Номер дома", 10);
 	tp.AddColumn("Номер квартиры", 14);
 	tp.PrintHeader();
-
 	for (auto i : info) {
 		if (passport == i.client_code) {
 			u++;
@@ -814,12 +757,10 @@ std::string vibor_1_2_3_4_5_6(std::string message) {
 		system("cls");
 		std::cout << message << std::endl;
 		getline(std::cin, vibor);
-		if (vibor != "1" && vibor != "2" && vibor != "3" && vibor != "4" && vibor != "5" && vibor != "6" && vibor != "7")
-			continue;
+		if (vibor != "1" && vibor != "2" && vibor != "3" && vibor != "4" && vibor != "5" && vibor != "6" && vibor != "7")continue;
 		else break;
 	}
 	return vibor;
-
 }
 void sort() {
 	system("cls");
@@ -870,8 +811,7 @@ void changelogpass() {
 		   temp.password = sha256(password1("Введите новый пароль."));
 		   users.push_back(temp);
 		   rewrite_user_file(users);
-		  
-	   }
+		}
 	   if (choice == "2") {
 		   system("cls");
 	   logpass tmp;
@@ -879,8 +819,7 @@ void changelogpass() {
 	   tmp.password =sha256( password1("Введите новый пароль"));
 	    users.push_back(tmp);
 	   rewrite_user_file(users);
-	  
-      }
+	 }
    }
    return;
 }
@@ -918,9 +857,7 @@ void changeinfo() {
 		data_magic_file(magic);
 		int n = 0;
 		for (auto i : magic) {
-			if (i.client_code == passport_code) {
-				n++;
-			}
+			if (i.client_code == passport_code) n++;
 		}
 		magic.erase(std::remove_if(magic.begin(), magic.end(), [=](information& s) { return s.client_code == passport_code; }), magic.end());
 		for (int i = 0; i < n; i++) {
