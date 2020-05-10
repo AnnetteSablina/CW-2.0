@@ -10,21 +10,6 @@
 
 namespace bprinter {
 	class endl {};
-	/** \class TablePrinter
-	  Print a pretty table into your output of choice.
-	  Usage:
-		TablePrinter tp(&std::cout);
-		tp.AddColumn("Name", 25);
-		tp.AddColumn("Age", 3);
-		tp.AddColumn("Position", 30);
-		tp.PrintHeader();
-		tp << "Dat Chu" << 25 << "Research Assistant";
-		tp << "John Doe" << 26 << "Professional Anonymity";
-		tp << "Jane Doe" << tp.SkipToNextLine();
-		tp << "Tom Doe" << 7 << "Student";
-		tp.PrintFooter();
-	  \todo Add support for padding in each table cell
-	  */
 	class TablePrinter {
 	public:
 		TablePrinter(std::ostream* output, const std::string& separator = "|");
