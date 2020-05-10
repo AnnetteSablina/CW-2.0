@@ -1,73 +1,54 @@
 #include"Header.h"
-void menu()
-{  std::vector<logpass>admins;
+void menu(){ 
+	std::vector<logpass>admins;
 	data_admin_file(admins);
 	std::vector <logpass> users;
 	data_user_file(users);
 	system("cls");
-	int a;
-	bool run = true;
-	while (run) {
-		a = getInt("Нажмите: \n 1.Вход от имени администратора. \n 2.Вход от имени пользователя. \n 3.Хотите выйти из программы.");
-		run = false;
-		switch (a) {
-		case 1:
-			system("cls");
-			Admin_haveAccount(admins);
-			break;
-		case 2:
-			system("cls");
-			User_haveAccount(users);
-			break;
-		case 3:
-			system("cls");
-			std::cout << "\nВы успешно вышли из программы." << std::endl;
-			exit(0);
-			break;
-		default:
-			std::cout << "Попробуйте ввести еще раз. Неверный ввод." << std::endl;
-			Sleep(2000);
-			system("cls");
-			run = true;
-			break;
-		}
-
+	std::string a;
+	while (true) {
+	system("cls");
+	std::cout << "Нажмите: \n 1.Вход от имени администратора. \n 2.Вход от имени пользователя. \n 3.Хотите выйти из программы" << std::endl;
+	getline(std::cin, a);
+	if (a != "1" && a != "2" && a != "3")continue;
+    else break;
 	}
-	return;
+	if (a=="1"){
+	system("cls");
+	Admin_haveAccount(admins);
+    }
+   if (a == "2") {
+   system("cls");
+    User_haveAccount(users);}
+   if (a == "3") {
+	system("cls");
+	std::cout << "\nВы успешно вышли из программы." << std::endl;
+	exit(0);
+   }
+ return;
 }	
 void Admin_haveAccount(std::vector<logpass>&admins) {
-	int a;
+	std::string a;
 	bool run = true;
 	Admin admin;
 	while (true) {
-		while (run) {
-			a = getInt("Вы точно администратор? \n Нажмите: \n 1.Да.\n 2.Нет.");
-			run = false;
-			switch (a) {
-			case 1:
-				system("cls");
-				admin.enterAccount(admins);
-				break;
-			case 2:
-				system("cls");
-				std::cout << "Войдите как пользователь либо зарегистрируйтесь у админестратора"<< std::endl;
-				Sleep(2000);
-				menu();
-			default:
-				system("cls");
-				std::cout << "Попробуйте ввести еще раз. Неверный ввод." << std::endl;
-				Sleep(2000);
-				system("cls");
-				run = true;
-				break;
-
-			}
-		}
+		system("cls");
+		std::cout << "Вы точно администратор? \n Нажмите: \n 1.Да.\n 2.Нет." << std::endl;
+		getline(std::cin, a);
+		if (a != "1" && a != "2")continue;
+		else break;
 	}
-
-
-
-}
+	if (a == "1") {
+		system("cls");
+		admin.enterAccount(admins);
+	}
+	if (a == "2") {
+		system("cls");
+		std::cout << "Войдите как пользователь либо зарегистрируйтесь у админестратора" << std::endl;
+		Sleep(2000);
+		menu();
+	}
+	}
 void data_admin_file(std::vector<logpass>& admins) {
 std::ifstream file("admins.txt");
 while (file)

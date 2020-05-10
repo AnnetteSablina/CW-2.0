@@ -1,36 +1,25 @@
 #include"Header.h"
 
 void User_haveAccount(std::vector<logpass>&users) {
-	int a;
-	bool run = true;
+	std::string a;
 	Client user;
 	while (true) {
-		while (run) {
-			a = getInt("У вас есть аккаунт? \n Нажмите: \n 1.Да.\n 2.Нет.");
-			run = false;
-			switch (a) {
-			case 1:
-				system("cls");
-				user.enterAccount(users);
-				break;
-			case 2:
-				system("cls");
-				std::cout << "Обратитесь к админестратору,чтобы зарегистрироваться." << std::endl;
-				Sleep(2000);
-				menu();
-			default:
-				system("cls");
-				std::cout << "Попробуйте ввести еще раз. Неверный ввод." << std::endl;
-				Sleep(2000);
-				system("cls");
-				run = true;
-				break;
-
-			}
-		}
+		system("cls");
+		std::cout << "У вас есть аккаунт? \n Нажмите: \n 1.Да.\n 2.Нет." << std::endl;
+		getline(std::cin, a);
+		if (a != "1" && a != "2")continue;
+		else break;
 	}
-
-
+	if (a == "1") {
+		system("cls");
+		user.enterAccount(users);
+	}
+	if (a == "2") {
+		system("cls");
+		std::cout << "Обратитесь к админестратору,чтобы зарегистрироваться." << std::endl;
+		Sleep(2000);
+		menu();
+	}
 }
 void data_user_file(std::vector<logpass>& users){	 
 	std::ifstream file("users.txt");
@@ -109,16 +98,11 @@ std::string login(int type, bool& access, bool& exit) {
 	int u=0;
 	std::string login ;
 	switch (type) {
-	case 0:
+	case 1:
 		system("cls");
 		login = getString("Введите логин.Для выхода введите menu.");
 		break;
-	case 1: 
-		system("cls");
-		login = getString("Введите логин.Для выхода введите menu.");
-		login = getString("Введите логин.Для выхода введите menu.");
-		break;
-	 case 2:
+	case 2:
 		system("cls");
 		login = getString("Вы ввели неверные логин или пароль. Введите логин еще раз. Для выхода введите menu.");
 		break;

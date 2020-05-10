@@ -153,6 +153,10 @@ std::string date(std::string message) {
 			system("cls");
 			isLeap = true;
 		}
+		if (year % 100 == 0) {
+			if (year % 400 == 0) isLeap = true;
+			else isLeap = false;
+		}
 
 		break;
 	}

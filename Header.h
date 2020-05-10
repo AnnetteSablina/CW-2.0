@@ -24,55 +24,55 @@ class data;
 class Client;
 class Vivod;
 
-void add_information();//РґРѕР±Р°РІРёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ
-void User_haveAccount(std::vector<logpass>&);//РІРѕРїСЂРѕСЃ Рѕ РёРјРµРЅРёРё Р°РєРєР°СѓРЅС‚Р°
-void Admin_haveAccount(std::vector<logpass>&);//РІРѕРїСЂРѕСЃ Рѕ РїРµСЂСЃРѕРЅР°Р»РёР·Р°С†РёРё Р»РёС‡РЅРѕСЃС‚Рё
-int getInt(std::string);// РїРѕР»СѓС‡РµРЅРёРµ С†РµР»РѕРіРѕ
-void menu();//РјРµРЅСЋ 1-РіРѕ СѓСЂРѕРІРЅСЏ
-void data_user_file(std::vector<logpass>& );//РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… Р»РѕРіРёРЅР°/РїР°СЂРѕР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, С‡С‚РµРЅРёРµ С„Р°Р№Р»Р°
-void data_admin_file(std::vector<logpass>&);//РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… Р»РѕРіРёРЅР°/РїР°СЂРѕР»СЏ Р°РґРјРёРЅР°, С‡С‚РµРЅРёРµ С„Р°Р№Р»Р°
-void admin_enter_account(std::vector<logpass>&);//РІС…РѕРґ РїРѕРґ Р°РґРјРёРЅРѕРј
-std::string getString(std::string);//РїРѕР»СѓС‡РµРЅРёРµ СЃС‚СЂРѕРєРё СЃ СЃРѕРѕР±С‰РµРЅРёРµРј
-void data_client_file(std::vector<information>&);//РїРѕР»СѓС‡РµРЅРёРµ РёРЅС„С‹ Рѕ РєР»РёРµРЅС‚Рµ РёР· С„Р°Р№Р»Р°,С‡С‚РµРЅРёРµ С„Р°Р№Р»Р°
-void rewrite_user_file(std::vector<logpass>&);//РїРµСЂРµР·Р°РїРёС‚СЊ С„Р°Р№Р»Р° СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРјРё
-void data_passport_file(std::vector<information>&);//РїРѕР»СѓС‡РµРЅРёРµ РёРґРµРЅС‚РёС„РёРєР°С†РёРѕРЅРЅРѕРіРѕ РЅРѕРјРµСЂР° РёР· С„Р°Р№Р»Р°
-std::string yes_no(std::string);//РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° РґР°/РЅРµС‚
-std::string login(int, bool&, bool&);//РїСЂРѕРІРµСЂРєР° РЅР° РІРІРѕРґ Р»РѕРіРёРЅР°
-std::string password(bool&);//РїСЂРѕРІРµСЂРєР° РЅР° РІРІРѕРґ РїР°СЂРѕР»СЏ
-void top_10();//10 СЃР°РјС‹С… Р°РєС‚РёРІРЅС‹С… РєР»РёРµРЅС‚РѕРІ
-std::string ns(std::string);//РїСЂРѕРІРµСЂРєР° РЅР° РІРІРѕРґ РёРјРµРЅРё Рё С„Р°РјРёР»РёРё
-std::string client_code(std::string);//РїСЂРѕРІРµСЂРєР° РЅР° РІРІРѕРґ РєРѕРґР° РєР»РёРµРЅС‚Р°
-std::string telephone_number(std::string);//РїСЂРѕРІРµСЂРєР° РЅР° С‚РµР»РµС„РѕРЅРЅС‹Р№ РЅРѕРјРµСЂ
-std::string ccs(std::string);// РїСЂРѕРІРµСЂРєР° РЅР° РІРІРѕРґ СЃС‚СЂР°РЅС‹, РіРѕСЂРѕРґР° Рё СѓР»РёС†С‹
-std::string hf(std::string);// РїСЂРѕРІРµСЂРєР° РЅР° РЅРѕРјРµСЂ РґРѕРјР° Рё РєРІР°СЂС‚РёСЂС‹
-std::string date(std::string);//РІРІРѕРґ РґР°С‚С‹
-std::string service_code(std::string);//РІР·СЏС‚РёРµ РЅРѕРјРµСЂР° РґРѕРіРѕРІРѕСЂР°
-std::string dogovor_name(std::string);//РІР·СЏС‚РёРµ РЅР°Р·РІР°РЅРёСЏ РґРѕРіРѕРІРѕСЂР°
-void add_document_code();//РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРјРµСЂР° РґРѕРіРѕРІРѕСЂР°
-std::string document_code(int, bool&);//РїСЂРѕРІРµСЂРєР° РІРІРѕРґР° РґРѕРіРѕРІРѕСЂР°
-void dogovor_code(std::vector<dogovor>&);//С‡С‚РµРЅРёРµ С„Р°Р№Р»Р° СЃ РЅРѕРјРµСЂР°РјРё РґРѕРіРѕРІРѕСЂРѕРІ
-std::string summ(std::string);//РїСЂРѕРІРµСЂРєР° РЅР° СЃСѓРјРјСѓ
-void  data_dogovor_file(std::vector<Vivod>&);//С‡С‚РµРЅРёРµ С„Р°Р№Р»Р° СЃ РґРѕРіРѕРІРѕСЂР°РјРё
-void find_dogovor_number();//РїРѕРёСЃРє РїРѕ РЅРѕРјРµСЂСѓ РґРѕРіРѕРІРѕСЂР°
-std::string dogovor_code1(std::string);// РїСЂРѕРІРµСЂРєР° РЅР° РІРІРѕРґ РґР°РЅРЅС‹С… РґРѕРіРѕРІРѕСЂР°
-std::string vibor_1_2_3_4_5_6(std::string);// С„СѓРЅРєС†РёСЏ РґР»СЏ РІС‹Р±РѕСЂР° СЃРѕСЂС‚РёСЂРѕРІРєРё Рё РїРѕРёСЃРєР°
-void find_date();// РїРѕРёСЃРє РґРѕРіРѕРІРѕСЂРІ РїРѕ РґР°С‚Рµ
-void find_passport();// РїРѕРёСЃРє РґРѕРіРѕРІРѕСЂРѕРІ РїРѕ РЅРѕРјРµСЂСѓ РїР°СЃРїРѕСЂС‚Р°
-void find_service();// РїРѕРёСЃРє РґРѕРіРѕРІРѕСЂРѕРІ РїРѕ РєРѕРґСѓ СѓСЃР»СѓРіРё
-void sort();//СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ РєРѕРґСѓ СѓСЃР»СѓРіРё
-void changelogpass();//С„СѓРЅРєС†РёСЏ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ Р»РѕРіРёРЅР° Рё РїР°СЂРѕР»СЏ
-std::string login1(std::string );// РґР»СЏ РїСЂРѕРІРµСЂРєРё Р»РѕРіРёРЅР°
-std::string password1(std::string);//РґР»СЏ РїСЂРѕРІРµСЂРєРё РїР°СЂРѕР»СЏ
-void changeinfo();// РѕР±РЅРѕРІРёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ
-void data_magic_file(std::vector<information>&);//РІР·СЏС‚РёРµ РґР°РЅРЅС‹С… Рѕ РєРѕР»РёС‡РµСЃС‚РІРµ Р·Р°РєР»СЋС‡РµРЅРЅС‹С… Р»СЋРґСЊРјРё РґРѕРіРѕРІРѕСЂРѕРІ
-void rewrite_information_file(std::vector <information>&);//РїРµСЂРµР·Р°РїРёСЃР°С‚СЊ С„Р°Р№Р» СЃ РёРЅС„РѕСЂРјР°С†РёРµР№
-void rewrite_passport_file(std::vector <information>&);//РїРµСЂРµР·РїРёСЃР°С‚СЊ С„Р°Р№Р» СЃ РїР°СЃРїРѕСЂС‚РЅС‹РјРё РґР°РЅРЅС‹РјРё
-void rewrite_magic_file(std::vector <information>&);//РїРµСЂРµРїРёР·Р°РїРёСЃР°С‚СЊ С„Р°Р№Р» СЃ РєРѕР»РёС‡РµСЃРІРѕРј Р·Р°РєР»СЋС‡РµРЅРЅС‹С… РґРѕРіРѕРІРѕСЂРѕРІ
-void delete_user();//СѓРґР°Р»РµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
-std::string admin_choise(std::string);//РІС‹Р±РѕСЂ РїСѓРЅРєС‚Р° РјРµРЅСЋ Р°РґРјРёРЅРµСЃС‚СЂР°С‚РѕСЂР°
-bool addlogpass();//РґРѕР±Р°РІРёС‚СЊ РїР°СЂРѕР»СЊ
-std::string user_choise(std::string);//РІС‹Р±РѕСЂ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РјРµРЅСЋ
-void find_user();//РїСЂРѕСЃРјРѕС‚СЂРёРёРЅС„РѕСЂРјР°С†РёРё Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ
+void add_information();//добавить информацию о пользователе
+void User_haveAccount(std::vector<logpass>&);//вопрос о имении аккаунта
+void Admin_haveAccount(std::vector<logpass>&);//вопрос о персонализации личности
+int getInt(std::string);// получение целого
+void menu();//меню 1-го уровня
+void data_user_file(std::vector<logpass>&);//получение данных логина/пароля пользователя, чтение файла
+void data_admin_file(std::vector<logpass>&);//получение данных логина/пароля админа, чтение файла
+void admin_enter_account(std::vector<logpass>&);//вход под админом
+std::string getString(std::string);//получение строки с сообщением
+void data_client_file(std::vector<information>&);//получение инфы о клиенте из файла,чтение файла
+void rewrite_user_file(std::vector<logpass>&);//перезапить файла с пользователями
+void data_passport_file(std::vector<information>&);//получение идентификационного номера из файла
+std::string yes_no(std::string);//получение ответа да/нет
+std::string login(int, bool&, bool&);//проверка на ввод логина
+std::string password(bool&);//проверка на ввод пароля
+void top_10();//10 самых активных клиентов
+std::string ns(std::string);//проверка на ввод имени и фамилии
+std::string client_code(std::string);//проверка на ввод кода клиента
+std::string telephone_number(std::string);//проверка на телефонный номер
+std::string ccs(std::string);// проверка на ввод страны, города и улицы
+std::string hf(std::string);// проверка на номер дома и квартиры
+std::string date(std::string);//ввод даты
+std::string service_code(std::string);//взятие номера договора
+std::string dogovor_name(std::string);//взятие названия договора
+void add_document_code();//добавление номера договора
+std::string document_code(int, bool&);//проверка ввода договора
+void dogovor_code(std::vector<dogovor>&);//чтение файла с номерами договоров
+std::string summ(std::string);//проверка на сумму
+void  data_dogovor_file(std::vector<Vivod>&);//чтение файла с договорами
+void find_dogovor_number();//поиск по номеру договора
+std::string dogovor_code1(std::string);// проверка на ввод данных договора
+std::string vibor_1_2_3_4_5_6(std::string);// функция для выбора сортировки и поиска
+void find_date();// поиск договорв по дате
+void find_passport();// поиск договоров по номеру паспорта
+void find_service();// поиск договоров по коду услуги
+void sort();//сортировка по коду услуги
+void changelogpass();//функция для изменения логина и пароля
+std::string login1(std::string);// для проверки логина
+std::string password1(std::string);//для проверки пароля
+void changeinfo();// обновить информацию о пользователе
+void data_magic_file(std::vector<information>&);//взятие данных о количестве заключенных людьми договоров
+void rewrite_information_file(std::vector <information>&);//перезаписать файл с информацией
+void rewrite_passport_file(std::vector <information>&);//перезписать файл с паспортными данными
+void rewrite_magic_file(std::vector <information>&);//перепизаписать файл с количесвом заключенных договоров
+void delete_user();//удаление пользователя
+std::string admin_choise(std::string);//выбор пункта меню админестратора
+bool addlogpass();//добавить пароль
+std::string user_choise(std::string);//выбор пользователя меню
+void find_user();//просмотриинформации о пользователе
 
 
 
@@ -82,39 +82,39 @@ void find_user();//РїСЂРѕСЃРјРѕС‚СЂРёРёРЅС„РѕСЂРјР°С†РёРё Рѕ РїРѕР»СЊР·РѕРІР°С‚Р
 
 class logpass {
 public:
-	logpass(std::string, std::string);// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р»РѕРіРёРЅ + РїР°СЂРѕР»СЊ
-	std::string password;//РїР°СЂРѕР»СЊ
-	std::string login;//Р»РѕРіРёРЅ
-	bool operator==(logpass human);// РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° ==
-	logpass();// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
-	
+	logpass(std::string, std::string);// конструктор логин + пароль
+	std::string password;//пароль
+	std::string login;//логин
+	bool operator==(logpass human);// перегрузка оператора ==
+	logpass();// конструктор по умолчанию
+
 
 };
 class information {
 public:
-	std::string client_code;// РєРѕРґ РєР»РёРµРЅС‚Р°/РЅРѕРјРµСЂ РїР°СЃРїРѕСЂС‚Р°
-	std::string name;//РРјСЏ
-	std::string surname;//Р¤Р°РјРёР»РёСЏ
-	std::string telephone_number;//РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°
-	std::string country;//РЎС‚СЂР°РЅР°
-	std::string city;//Р“РѕСЂРѕРґ
-	std::string street;//РЈР»РёС†Р°
-	std::string housenumber;//РќРѕРјРµСЂ РґРѕРјР°
-	std::string flatnumber;//РќРѕРјРµСЂ РєРІР°СЂС‚РёСЂС‹
-    std::string kolichestvo;//РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РєР»СЋС‡РµРЅРЅС‹С… РґРѕРіРѕРІРѕСЂРѕРІ
+	std::string client_code;// код клиента/номер паспорта
+	std::string name;//Имя
+	std::string surname;//Фамилия
+	std::string telephone_number;//Номер телефона
+	std::string country;//Страна
+	std::string city;//Город
+	std::string street;//Улица
+	std::string housenumber;//Номер дома
+	std::string flatnumber;//Номер квартиры
+	std::string kolichestvo;//количество заключенных договоров
 };
 class dogovor {
 public:
-	std::string name;//РќР°Р·РІР°РЅРёРµ РґРѕРіРѕРІРѕСЂР°
-	std::string document_code;//РљРѕРґ РґРѕРіРѕРІРѕСЂР°
-	std::string service_code;// РљРѕРґ СѓСЃР»СѓРіРё
-	std::string summ;//РЎСѓРјРјР°
-	std::string commition;//РљРѕРјРёСЃcРёРѕРЅРЅС‹Рµ
-	
+	std::string name;//Название договора
+	std::string document_code;//Код договора
+	std::string service_code;// Код услуги
+	std::string summ;//Сумма
+	std::string commition;//Комисcионные
+
 };
 class data {
 public:
-	std::string date;//РґР°С‚Р°
+	std::string date;//дата
 };
 class Client {
 public:
@@ -122,27 +122,28 @@ public:
 	information user;
 	dogovor dogovorka;
 	data datas;
-	virtual void enterAccount(std::vector<logpass>&);//Р’С…РѕРґ РІ Р°РєРєР°СѓРЅС‚
-	void userMenu();// РјРµРЅСЋ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
-	
- };
+	virtual void enterAccount(std::vector<logpass>&);//Вход в аккаунт
+	void userMenu();// меню пользователя
+
+};
 class Admin :public Client
-{public:
-    void enterAccount(std::vector<logpass>& ) override ;//РІС…РѕРґ РІ Р°РєРєР°СѓРЅС‚
-	void adminMenu();//РјРµРЅСЋ Р°РґРјРёРЅР°
-	void add_user_information_dogovor();//РґРѕР±Р°РІРёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ
-     bool add_client_code_into_dogovor();// РїСЂРѕРІРµСЂРёС‚СЊ РєРѕРґ РєР»РёРµРЅС‚Р° Рё РґРѕР±Р°РІРёС‚СЊ РµРіРѕ РІ С„Р°Р№Р» СЃ РґРѕРіРѕРІРѕСЂРѕРј
-	void add_dogovor();//РґРѕР±Р°РІРёС‚СЊ РґРѕРіРѕРІРѕСЂ
-	bool check_login_once();//Р”Р»СЏ РїСЂРѕРІРµСЂРєРё РµСЃС‚СЊ Р»Рё С‚Р°РєРѕР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІ Р±Р°Р·Рµ
+{
+public:
+	void enterAccount(std::vector<logpass>&) override;//вход в аккаунт
+	void adminMenu();//меню админа
+	void add_user_information_dogovor();//добавить информацию о пользователе
+	bool add_client_code_into_dogovor();// проверить код клиента и добавить его в файл с договором
+	void add_dogovor();//добавить договор
+	bool check_login_once();//Для проверки есть ли такой пользователь в базе
 	void vivod();
 };
 class Vivod {
 public:
-	std::string client_code;//РЅРѕРјРµСЂ РїР°СЃРїРѕСЂС‚Р°
-	std::string service_code;//РєРѕРґ СѓСЃР»СѓРіРё
-	std::string name;//РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
-	std::string summ;//СЃСѓРјРјР°
-	std::string comission;//РєРѕРјРёСЃСЃРёРѕРЅРЅС‹Рµ
-	std::string document_code;//РЅРѕРјРµСЂ РґРѕРіРѕРІРѕСЂР°
-	std::string date;//РґР°С‚Р° РїРѕРґРїРёСЃР°РЅРёСЏ
+	std::string client_code;//номер паспорта
+	std::string service_code;//код услуги
+	std::string name;//имя пользователя
+	std::string summ;//сумма
+	std::string comission;//комиссионные
+	std::string document_code;//номер договора
+	std::string date;//дата подписания
 };
