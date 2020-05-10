@@ -404,7 +404,7 @@ void delete_user() {
 			userss.erase(std::remove_if(userss.begin(), userss.end(), [=](information& a) { return a.client_code == passport_code; }), userss.end());
 			k = userss.size();
 			if (a == k) {
-				std::cout << "Вы ввели некорректрый номер паспорта повторите еще раз." << std::endl;
+				std::cout << "Вы ввели некорректный номер паспорта повторите еще раз." << std::endl;
 				continue;
 			}
 			else {

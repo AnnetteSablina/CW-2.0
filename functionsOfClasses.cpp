@@ -62,7 +62,7 @@ std::string client_code(std::string message) {
 		if (s == 0) {
 			for (unsigned int i = 0; i < client_code.size(); i++) {
 
-				if (client_code[i] >= 'a' && client_code[i] <= 'z' || client_code[i] >= '0' && client_code[i] <= '9' || client_code[0] >= 'A' && client_code[0] <= 'Z')
+				if (client_code[i] >= 'a' && client_code[i] <= 'z' || client_code[i] >= '0' && client_code[i] <= '9' || client_code[i] >= 'A' && client_code[i] <= 'Z')
 					u++;
 				else {
 					std::cout << "Используйте буквы латинского алфавита и цифры и  для ввода" << std::endl;
@@ -111,11 +111,11 @@ for (unsigned int i = 0; i < ccs.size(); i++) {
 			}
 
 			for (i; i < ccs.size(); i++) {
-				if (ccs[i] >= 'a' && ccs[i] <= 'z' || ccs[i]>='A' && ccs[i]<='Z' || ccs[i]=='.')
+				if (ccs[i] >= 'a' && ccs[i] <= 'z'  || ccs[i]=='.' || ccs[i] == ' ')
 					u++;
 
 				else {
-					std::cout << "Используйте за ввода буквы латинского алфавита и точку." << std::endl;
+					std::cout << "Используйте за ввода буквы латинского алфавита " << std::endl;
 					u = 0;
 					break;
 				}
@@ -398,7 +398,7 @@ void top_10() {
 		return a.kolichestvo > b.kolichestvo;
 	});
 	if (kolvo.size() > 10) {
-		kolvo.erase(kolvo.begin() + 9, kolvo.end());
+		kolvo.erase(kolvo.begin() + 10, kolvo.end());
 	}
 	TablePrinter tp(&std::cout);
 	tp.AddColumn("Номер паспорта", 14);

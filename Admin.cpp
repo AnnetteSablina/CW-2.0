@@ -94,18 +94,18 @@ void Admin::enterAccount(std::vector<logpass>&admins) {
 
 };
 void Admin::adminMenu() {
-	std::string choice1 = "";
-	std::string choice2 = "";
-	std::string choice3 = "";
+	std::string choice5 = "";
+	std::string choice4 = "";
+	std::string choice7 = "";
 	std::string vibor = "";
 	bool check = true;
-	std::string choice=admin_choise(" МЕНЮ АДМИНИСТРАТОРА  \n  Нажмите: \n 1.Заключить новый договор. \n 2.Редактирование информации о пользователе. \n 3.Просмотр заключенных договоров. \n 4.Поиск и сортировка данных. \n 5.Добавление логина и пароля нового пользователя или информации о нем. \n 6.Удаление пользователя из базы(производится в случае его смерти). \n 7.Топ 10 самых активных клиентов. \n 8.Вернуться в главное меню." );
-	if (choice == "1") {
+	std::string choice8=admin_choise(" МЕНЮ АДМИНИСТРАТОРА  \n  Нажмите: \n 1.Заключить новый договор. \n 2.Редактирование информации о пользователе. \n 3.Просмотр заключенных договоров. \n 4.Поиск и сортировка данных. \n 5.Добавление логина и пароля нового пользователя или информации о нем. \n 6.Удаление пользователя из базы(производится в случае его смерти). \n 7.Топ 10 самых активных клиентов. \n 8.Вернуться в главное меню." );
+	if (choice8 == "1") {
 		system("cls");
-		choice = yes_no("Клиент имеет логин и пароль? Введите yes или no.");
+		choice8 = yes_no("Клиент имеет логин и пароль? Введите yes или no.");
 		while (true) {
 			bool l=false;
-			if (choice == "yes") {
+			if (choice8 == "yes") {
 				check = true;
 				check = check_login_once();
 				if (!check) {
@@ -126,8 +126,8 @@ void Admin::adminMenu() {
 			else break;
 		}
 		system("pause");
-		choice1 = yes_no("Клиент имеет заполненные данные в базе? Введите yes или no.");
-		if (choice1 == "yes") {
+		choice5 = yes_no("Клиент имеет заполненные данные в базе? Введите yes или no.");
+		if (choice5 == "yes") {
 			check = add_client_code_into_dogovor();
 			if (check) {
 				system("cls");
@@ -171,37 +171,37 @@ void Admin::adminMenu() {
 		}
 		
 	}
-	if (choice == "2") {
+	if (choice8 == "2") {
 		system("cls");
-		choice3.clear();
+		choice7.clear();
 		while (true) {
 			system("cls");
 			std::cout << " Введите:  \n 1.Если хотите изменить данные логина и пароля \n 2.Если хотите обновить информацию о пользователе. \n 3.Вернуться в меню админа " << std::endl;
-			getline(std::cin, choice3);
-			if (choice3 != "1" && choice3 != "2" && choice3 != "3")
+			getline(std::cin, choice7);
+			if (choice7 != "1" && choice7 != "2" && choice7 != "3")
 				continue;
 			else break;
 		}
 		system("cls");
-		if (choice3 == "1") { changelogpass();}
-		if (choice3 == "2") { changeinfo(); }
-		if (choice3 == "3") { adminMenu(); return; }
+		if (choice7 == "1") { changelogpass();}
+		if (choice7 == "2") { changeinfo(); }
+		if (choice7 == "3") { adminMenu(); return; }
 		system("pause");
-		choice1.clear();
-		choice1 = yes_no("Введите 'yes', если хотите остаться в меню администратора и  'no', чтобы вернуться в главное меню. ");
-		if (choice1 == "yes") { adminMenu(); return; }
+		choice5.clear();
+		choice5 = yes_no("Введите 'yes', если хотите остаться в меню администратора и  'no', чтобы вернуться в главное меню. ");
+		if (choice5 == "yes") { adminMenu(); return; }
 		else { menu(); return; }
 		return;
 	}
-	if (choice == "3") {
+	if (choice8 == "3") {
 		system("cls");
 		vivod();
 		return;
 	}
-	if (choice == "4") {
+	if (choice8 == "4") {
 		system("cls");
-		choice1.clear();
-		vibor = vibor_1_2_3_4_5_6(" Введите : \n 1. Если хотите осуществить поиск по номеру договора. \n 2. Если хотите осуществить поиск по номеру паспорта \n 3. Если хотите осуществить поиск по номеру услуги. \n 4. Если хотите осуществить поиск по дате. \n 5. Если хотите информацию о пользователе. \n 6. Если хотите сортировать по коду услуги. \n 7. Вернуться в меню админисратора.");
+		choice5.clear();
+		vibor = vibor_1_2_3_4_5_6(" Введите : \n 1. Если хотите осуществить поиск по номеру договора. \n 2. Если хотите осуществить поиск по номеру паспорта \n 3. Если хотите осуществить поиск по номеру услуги. \n 4. Если хотите осуществить поиск по дате. \n 5. Если хотите просмотреть информацию о пользователе. \n 6. Если хотите сортировать по коду услуги. \n 7. Вернуться в меню админисратора.");
 		system("cls");
 		if (vibor == "1") find_dogovor_number();
 		if (vibor == "2") find_passport();
@@ -210,60 +210,61 @@ void Admin::adminMenu() {
 		if (vibor == "5") find_user();
 		if (vibor == "6") sort();
 		if (vibor == "7") { adminMenu(); return; }
-		choice1.clear();
+		choice5.clear();
 		system("pause");
-		choice1 = yes_no("Введите 'yes', если хотите остаться в меню администратора и  'no', чтобы вернуться в главное меню. ");
-		if (choice1 == "yes") { adminMenu(); return; }
-		else { menu(); return; }
+		choice5 = yes_no("Введите 'yes', если хотите остаться в меню администратора и  'no', чтобы вернуться в главное меню. ");
+		if (choice5 == "yes")adminMenu();
+		else menu();
+		return;
 	}
-	if (choice == "5") {
+	if (choice8 == "5") {
 		system("cls");
-		choice3.clear();
+		choice7.clear();
 		while (true) {
 			system("cls");
 			std::cout << " Введите:  \n 1.Если хотите добавить логин и пароль \n 2.Если хотите добавить информацию о пользователе. \n 3.Вернуться в меню администратора. " << std::endl;
-			getline(std::cin, choice3);
-			if (choice3 != "1" && choice3 != "2" && choice3 != "3")
+			getline(std::cin, choice7);
+			if (choice7 != "1" && choice7 != "2" && choice7 != "3")
 				continue;
 			else break;
 		}
-		if (choice3 == "1") {
+		if (choice7 == "1") {
 			bool n = addlogpass();
 			if (n) {
 				adminMenu();
 			}
 		}
-		if (choice3 == "2") add_information();
-		if (choice3 == "3") { adminMenu(); return; }
+		if (choice7 == "2") add_information();
+		if (choice7 == "3") adminMenu(); 
 		system("pause");
-		choice1.clear();
-		choice1 = yes_no("Введите 'yes', если хотите остаться в меню администратора и  'no', чтобы вернуться в главное меню. ");
-		if (choice1 == "yes") { adminMenu(); return; }
-		else { menu(); return; }
+		choice5.clear();
+		choice5 = yes_no("Введите 'yes', если хотите остаться в меню администратора и  'no', чтобы вернуться в главное меню. ");
+		if (choice5 == "yes") adminMenu();
+		else menu(); 
 		return;
 
 	}
-	if (choice == "6") {
+	if (choice8 == "6") {
 		system("cls");
-		std::string choice4 = yes_no("Вы точно уверены в том, что хотите удалить пользователя? \n 1.Введите 'yes',если да \n 2.Введите 'no',если нет или это было случайное нажатие. Вернуться в меню администратора.");
-		if (choice4 == "yes") { delete_user(); return; }
-		if (choice4 == "no") { adminMenu(); return; }
-		choice2 = yes_no("Введите 'yes', если хотите остаться в меню администратора и  'no', чтобы вернуться в главное меню. ");
-		if (choice2 == "yes") { adminMenu(); return; }
-		else { menu(); return; }
+		std::string choice0 = yes_no("Вы точно уверены в том, что хотите удалить пользователя? \n 1.Введите 'yes',если да \n 2.Введите 'no',если нет или это было случайное нажатие. Вернуться в меню администратора.");
+		if (choice0 == "yes") delete_user(); 
+		if (choice0 == "no")  adminMenu(); 
+		choice4 = yes_no("Введите 'yes', если хотите остаться в меню администратора и  'no', чтобы вернуться в главное меню. ");
+		if (choice4 == "yes") adminMenu();
+		else menu();
 		return;
 	}
-	if (choice == "7") {
+	if (choice8 == "7") {
 		system("cls");
 		top_10();
 		system("pause");
-		choice1.clear();
-		choice1 = yes_no("Введите 'yes', если хотите остаться в меню администратора и  'no', чтобы вернуться в главное меню. ");
-		if (choice1 == "yes") { adminMenu(); return; }
-		else { menu(); return; }
+		choice5.clear();
+		choice5 = yes_no("Введите 'yes', если хотите остаться в меню администратора и  'no', чтобы вернуться в главное меню. ");
+		if (choice5 == "yes")adminMenu();
+		else  menu(); 
 		return;
 	}
-	if (choice == "8") {
+	if (choice8 == "8") {
 		system("cls");
 		menu();
 		return;
@@ -336,7 +337,7 @@ bool addlogpass() {
 	bool exit = false;
 	do {
 		if (access) {
-			human.login = login(0, access, exit);
+			human.login = login(1, access, exit);
 		}
 		else {
 			human.login = login(3, access, exit);
@@ -380,7 +381,7 @@ bool Admin::check_login_once() {
 	bool exit = false;
 	do {
 		if (access) {
-			this->human.login = login(0, access, exit);
+			this->human.login = login(1, access, exit);
 		}
 		if (exit) break;
 		access = true;
