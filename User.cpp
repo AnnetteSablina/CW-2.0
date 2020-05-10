@@ -198,13 +198,14 @@ std::string password(bool& exit) {
 };
 void Client::userMenu() {
 	system("cls");
-	std::string choise = user_choise("МЕНЮ ПОЛЬЗОВАТЕЛЯ \n 1.Найти договор по его номеру. \n 2.Найти договор по номеру паспорта. \n 3.Найти договор по дате заключения. \n 4.Изменить логин или пароль. \n 5.Изменить информацию о себе. \n 6.Выйти в главное меню.");
-	if (choise == "1") find_dogovor_number();
-	if (choise == "2") find_passport();
-	if (choise == "3")find_date();
-	if (choise == "4")changelogpass();
-	if (choise == "5")changeinfo();
-	if (choise == "6")menu();
+	std::string choice = user_choise("МЕНЮ ПОЛЬЗОВАТЕЛЯ \n 1.Найти договор по его номеру. \n 2.Найти договор по номеру паспорта. \n 3.Найти договор по дате заключения. \n 4.Посмотреть информацию о себе. \n 5.Изменить логин или пароль. \n 6.Изменить информацию о себе. \n 7.Выйти в главное меню.");
+	if (choice == "1")find_dogovor_number();
+	if (choice == "2")find_passport();
+	if (choice == "3")find_date();
+	if (choice == "4")find_user();
+	if (choice == "5")changelogpass();
+	if (choice == "6")changeinfo();
+	if (choice == "7")menu();
 	system("pause");
 	std::string next = yes_no("Введите: \n 1.'yes',eсли хотите вернуться в меню пользователя. \n 2.'no',eсли хотите вернуться в главное меню ");
 	if (next == "yes") {
@@ -302,7 +303,7 @@ void Admin::vivod() {
 		tp.PrintFooter();
 	}
 	system("pause");
-	std::string choise = yes_no("Вы хотите вернуться в меню админестратора ? \n Введите 'yes', если да или 'no', чтобы перейти в главное меню. ");
+	std::string choise = yes_no("Вы хотите вернуться в меню администратора ? \n Введите 'yes', если да или 'no', чтобы перейти в главное меню. ");
 	if (choise == "yes") adminMenu();
 	else menu();
 };
@@ -474,7 +475,7 @@ std::string user_choise(std::string message) {
 		system("cls");
 		std::cout << message << std::endl;
 		getline(std::cin, vibor);
-		if (vibor != "1" && vibor != "2" && vibor != "3" && vibor != "4" && vibor != "5" && vibor != "6")
+		if (vibor != "1" && vibor != "2" && vibor != "3" && vibor != "4" && vibor != "5" && vibor != "6" && vibor != "7")
 			continue;
 		else break;
 	}

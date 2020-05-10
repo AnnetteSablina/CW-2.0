@@ -38,51 +38,6 @@ int getInt(std::string message) {
 	};
 	return c;
 }
-information::information(std::string telephone_number, std::string country, std::string city, std::string street, std::string housenumber, std::string flatnumber, std::string kolichestvo) {
-    this->telephone_number = telephone_number;
-	this->country = country;
-	this->city = city;
-	this->street = street;
-	this->housenumber = housenumber;
-	this->flatnumber = flatnumber;
-	this->kolichestvo = kolichestvo;
-}
-information::information(std::string kolichestvo) {
-	this->kolichestvo = kolichestvo;
-}
-information::information(std::string client_code,std::string name, std::string surname) {
-	this->client_code = client_code;
-	this->name = name;
-	this->surname = surname;
-}
-bool information::operator==( information user) {
-	if (this->client_code==user.client_code)//&& this->name == user.name && this->surname == user.surname && this->telephone_number == user.telephone_number && this->country == user.country && this->city == user.city && this->street == user.street && this->housenumber == user.housenumber && this->flatnumber == user.flatnumber && this->kolichestvo == user.kolichestvo)
-		return true;
-	else
-		return false;
-};
-information::information() {
-
-}
-data::data(std::string date) {
-	this->date = date;
-}
-data::data() {
-
-}
-dogovor::dogovor() {
-};
-dogovor::dogovor(std::string document_code) {
-	
-	this->document_code = document_code;
-	
-}
-dogovor::dogovor(std::string service_code, std::string name, std::string summ, std::string commition) {
-	this->service_code = service_code;
-	this->name = name;
-	this->summ = summ;
-	this->commition = commition;
-}
 std::string client_code(std::string message) {
 	std::string client_code;
 	for (int k = 0;;) {
@@ -370,7 +325,7 @@ std::string ns(std::string message) {
 		if (s == 0) {
 			for (unsigned int i = 0; i < ns.size(); i++) {
 				if (ns.size() < 3 || ns.size() > 15) {
-					std::cout << "  Минимум 3 символа. Максимум 15." << std::endl;
+					std::cout << " Минимум 3 символа. Максимум 15." << std::endl;
 					break;
 				}
 				if (ns[0] >= 'A' && ns[0] <= 'Z')
@@ -819,13 +774,47 @@ void find_service() {
 	return;
 
 }
+void find_user() {
+	system("cls");
+	int u = 0;
+	std::string passport;
+	passport = client_code("Введите номер паспорта.");
+	std::vector<information> info;
+	data_client_file(info);
+	TablePrinter tp(&std::cout);
+	tp.AddColumn("Номер паспорта", 14);
+	tp.AddColumn("Имя и Фамилия", 15);
+	tp.AddColumn("Номер телефона", 14);
+	tp.AddColumn("Страна и Город", 20);
+	tp.AddColumn("Улица", 20);
+	tp.AddColumn("Номер дома", 10);
+	tp.AddColumn("Номер квартиры", 14);
+	tp.PrintHeader();
+
+	for (auto i : info) {
+		if (passport == i.client_code) {
+			u++;
+			tp << i.client_code << i.name << i.telephone_number << i.country <<i.street<< i.housenumber << i.flatnumber << bprinter::endl();
+			tp<<" "  << i.surname<< " " <<i.city<<" "<<" "<<" " << bprinter::endl(); ;
+			tp.PrintFooter();
+		}
+
+	}
+	if (u == 0) {
+		tp << " " << bprinter::endl();
+		tp.PrintFooter();
+		std::cout << "Этого номера паспорта нет в базе." << std::endl;
+	}
+	return;
+
+}
 std::string vibor_1_2_3_4_5_6(std::string message) {
 	std::string vibor;
 	while (true) {
 		system("cls");
 		std::cout << message << std::endl;
 		getline(std::cin, vibor);
-		if (vibor != "1" && vibor != "2" && vibor != "3" && vibor != "4" && vibor != "5" )
+		if (vibor != "1" && vibor != "2" && vibor != "3" && vibor != "4" && vibor != "5" && vibor != "6" && vibor != "7")
 			continue;
 		else break;
 	}

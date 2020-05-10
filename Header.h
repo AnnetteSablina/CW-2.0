@@ -34,7 +34,7 @@ void data_admin_file(std::vector<logpass>&);//получение данных л
 void admin_enter_account(std::vector<logpass>&);//вход под админом
 std::string getString(std::string);//получение строки с сообщением
 void data_client_file(std::vector<information>&);//получение инфы о клиенте из файла,чтение файла
-void rewrite_user_file(std::vector<logpass>&);
+void rewrite_user_file(std::vector<logpass>&);//перезапить файла с пользователями
 void data_passport_file(std::vector<information>&);//получение идентификационного номера из файла
 std::string yes_no(std::string);//получение ответа да/нет
 std::string login(int, bool&, bool&);//проверка на ввод логина
@@ -72,6 +72,7 @@ void delete_user();//удаление пользователя
 std::string admin_choise(std::string);//выбор пункта меню админестратора
 bool addlogpass();//добавить пароль
 std::string user_choise(std::string);//выбор пользователя меню
+void find_user();//просмотриинформации о пользователе
 
 
 
@@ -91,7 +92,6 @@ public:
 };
 class information {
 public:
-	information(std::string, std::string, std::string, std::string,std::string,std::string,std::string);// конструктор для всех полей кроме кода клиента
 	std::string client_code;// код клиента/номер паспорта
 	std::string name;//Имя
 	std::string surname;//Фамилия
@@ -102,10 +102,6 @@ public:
 	std::string housenumber;//Номер дома
 	std::string flatnumber;//Номер квартиры
     std::string kolichestvo;//количество заключенных договоров
-	information(std::string);
-	information();//Конструктор по умолчанию
-	information(std::string, std::string, std::string);//конструктор для номера паспорта,имени и фамилии
-   bool operator == ( information user );//перегрузка оператора ==
 };
 class dogovor {
 public:
@@ -113,16 +109,12 @@ public:
 	std::string document_code;//Код договора
 	std::string service_code;// Код услуги
 	std::string summ;//Сумма
-	std::string commition;//Коммисионные
-	dogovor();
-	dogovor(std::string);
-	dogovor(std::string, std::string, std::string, std::string);
+	std::string commition;//Комисcионные
+	
 };
 class data {
 public:
-	std::string date;
-	data(std::string);
-	data();
+	std::string date;//дата
 };
 class Client {
 public:
@@ -146,11 +138,11 @@ class Admin :public Client
 };
 class Vivod {
 public:
-	std::string client_code;
-	std::string service_code;
-	std::string name;
-	std::string summ;
-	std::string comission;
-	std::string document_code;
-	std::string date;
+	std::string client_code;//номер паспорта
+	std::string service_code;//код услуги
+	std::string name;//имя пользователя
+	std::string summ;//сумма
+	std::string comission;//комиссионные
+	std::string document_code;//номер договора
+	std::string date;//дата подписания
 };
