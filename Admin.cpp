@@ -122,23 +122,27 @@ void Admin::adminMenu() {
 	if (choice == "1") {
 		system("cls");
 		choice = yes_no("Клиент имеет логин и пароль? Введите yes или no.");
-		if (choice == "yes") {
-			check = true;
-			check = check_login_once();
-			if (!check) {
-				system("cls");
-				std::cout << "Пользователя с таким логином не существует." << std::endl;
-				std::cout << "Добавьте его в базу." << std::endl;
-				system("pause");
-				addlogpass();
+		while (true) {
+			bool l=false;
+			if (choice == "yes") {
+				check = true;
+				check = check_login_once();
+				if (!check) {
+					system("cls");
+					std::cout << "Пользователя с таким логином не существует." << std::endl;
+					std::cout << "Добавьте его в базу." << std::endl;
+					system("pause");
+					l = addlogpass();
+				}
 			}
-		}
-		else {
-			system("cls");
-			std::cout << "Добавьте информацию о пользователе." << std::endl;
-			system("pause");
-			addlogpass();
-
+			else {
+				system("cls");
+				std::cout << "Добавьте информацию о пользователе." << std::endl;
+				system("pause");
+				l = addlogpass();
+			}
+			if (l) {adminMenu(); return;}
+			else break;
 		}
 		system("pause");
 		choice1 = yes_no("Клиент имеет заполненные данные в базе? Введите yes или no.");
